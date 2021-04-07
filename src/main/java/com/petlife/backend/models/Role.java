@@ -1,5 +1,4 @@
 package com.petlife.backend.models;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
