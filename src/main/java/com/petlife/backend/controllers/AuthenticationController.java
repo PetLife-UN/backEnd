@@ -117,9 +117,14 @@ public class AuthenticationController {
                 }
             });
         }
-
         user.setRoles(roles);
         userRepository.save(user);
+
+        try{
+            sendEmailService.sendEmail(user.getEmail().toString(), "Welcome to pet day", "Aqui va el token ");
+        }catch(Exception e){
+            System.out.println("There is a mistake");
+        }
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }
