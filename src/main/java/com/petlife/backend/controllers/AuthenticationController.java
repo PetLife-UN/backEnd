@@ -73,7 +73,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest signUpRequest) throws MessagingException {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest signUpRequest) {
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
@@ -120,7 +120,12 @@ public class AuthenticationController {
 
         user.setRoles(roles);
         userRepository.save(user);
-        //sendEmailService.sendEmail(signUpRequest.getEmail(), "Welcome to PetLife", "Esto es donde deberia ir el token");
+        try{
+            sendEmailService.sendEmail(user.getEmail().toString(), "Welcome to PetLife", "Esto es donde deberia ir el token");
+        }catch(Exception e){
+            System.out.println("Its a mistake");
+        }
+
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }
