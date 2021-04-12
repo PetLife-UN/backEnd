@@ -120,7 +120,7 @@ public class AuthenticationController {
 
         user.setRoles(roles);
         userRepository.save(user);
-        sendEmailService.sendEmail(signUpRequest.getEmail(), "Welcome to PetLife", "Esto es donde deberia ir el token");
+        //sendEmailService.sendEmail(signUpRequest.getEmail(), "Welcome to PetLife", "Esto es donde deberia ir el token");
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }
