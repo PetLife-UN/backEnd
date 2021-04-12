@@ -120,12 +120,6 @@ public class AuthenticationController {
 
         user.setRoles(roles);
         userRepository.save(user);
-        try{
-            sendEmailService.sendEmail(user.getEmail().toString(), "Welcome to PetLife", "Esto es donde deberia ir el token");
-        }catch(Exception e){
-            System.out.println("Its a mistake");
-        }
-
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }
