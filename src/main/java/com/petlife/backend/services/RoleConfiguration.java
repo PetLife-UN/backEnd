@@ -15,13 +15,15 @@ public class RoleConfiguration {
     @Bean
     CommandLineRunner commandLineRunner(RoleRepository roleRepository){
         return args -> {
-            eRole user = eRole.ROLE_USER;
+            /*eRole user = eRole.ROLE_USER;
             Role rUser = new Role(user);
             eRole moderator = eRole.ROLE_MODERATOR;
             Role rModerator = new Role(moderator);
             eRole admin = eRole.ROLE_ADMIN;
             Role rAdmin = new Role(admin);
             roleRepository.saveAll(List.of(rUser, rModerator, rAdmin));
+            */
+
         };
     }
 }

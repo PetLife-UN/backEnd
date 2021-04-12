@@ -10,6 +10,7 @@ import com.petlife.backend.requestModels.JwtResponse;
 import com.petlife.backend.requestModels.LoginRequest;
 import com.petlife.backend.requestModels.MessageResponse;
 import com.petlife.backend.requestModels.RegisterRequest;
+import com.petlife.backend.services.SendEmailService;
 import com.petlife.backend.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,6 +48,9 @@ public class AuthenticationController {
     @Autowired
     JwtUtil jwtUtils;
 
+    @Autowired
+    private SendEmailService sendEmailService;
+
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -67,7 +73,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest signUpRequest) throws MessagingException {
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
@@ -114,7 +120,7 @@ public class AuthenticationController {
 
         user.setRoles(roles);
         userRepository.save(user);
-
+        sendEmailService.sendEmail(signUpRequest.getEmail(), "Welcome to PetLife", "Esto es donde deberia ir el token");
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }
