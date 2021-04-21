@@ -1,6 +1,5 @@
-package com.petlife.backend.jwt;
+package com.petlife.backend.services;
 
-import com.petlife.backend.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +10,8 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-public class JwtUtil {
-    private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
+public class JwtServices {
+    private static final Logger logger = LoggerFactory.getLogger(JwtServices.class);
 
     @Value("${petLife.app.jwtSecret}")
     private String jwtSc;

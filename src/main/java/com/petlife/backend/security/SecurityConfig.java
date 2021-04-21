@@ -1,7 +1,5 @@
 package com.petlife.backend.security;
 
-import com.petlife.backend.jwt.AuthEntryPointJwt;
-import com.petlife.backend.jwt.AuthTokenFilter;
 import com.petlife.backend.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

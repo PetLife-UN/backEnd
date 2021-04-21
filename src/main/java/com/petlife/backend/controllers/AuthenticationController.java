@@ -1,6 +1,6 @@
 package com.petlife.backend.controllers;
 
-import com.petlife.backend.jwt.JwtUtil;
+import com.petlife.backend.services.JwtServices;
 import com.petlife.backend.models.Role;
 import com.petlife.backend.models.User;
 import com.petlife.backend.models.eRole;
@@ -44,7 +44,7 @@ public class AuthenticationController {
     PasswordEncoder encoder;
 
     @Autowired
-    JwtUtil jwtUtils;
+    JwtServices jwtUtils;
 
     @Autowired
     private SendEmailService sendEmailService;
