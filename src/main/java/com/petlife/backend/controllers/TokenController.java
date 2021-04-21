@@ -2,7 +2,6 @@ package com.petlife.backend.controllers;
 
 import com.petlife.backend.jwt.JwtUtil;
 import com.petlife.backend.repositories.UserRepository;
-import com.petlife.backend.requestModels.request.TokenRequest;
 import com.petlife.backend.requestModels.response.TokenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,9 +33,9 @@ public class TokenController {
         }
     }
 
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN') ")
     @PostMapping(value = "/requestNew")
-    public ResponseEntity<?> requestNewToken(@RequestBody TokenRequest request){
+    public ResponseEntity<?> requestNewToken(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
 
