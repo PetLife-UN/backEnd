@@ -56,13 +56,30 @@ public class UserService {
         return userRepository.findByEmail(email).orElse(null);
     }
 
+    public User findByActivationToken(String activationToken) {
+        return userRepository.findByActivationToken(activationToken).orElse(null);
+    }
+
+    public boolean existByEmail(String email){
+        return userRepository.existsByEmail(email);
+    }
+
+    public boolean save(User p) {
+        try {
+            userRepository.save(p);
+            return true;
+        } catch (Exception e) {
+            /*Implementar logging sobre el insert de un User*/
+            return false;
+        }
+    }
 
     public boolean update(User p) {
         try {
             userRepository.save(p);
             return true;
         } catch (Exception e) {
-            /*Implementar logging sobre el insert de un person*/
+            /*Implementar logging sobre el update de un User*/
             return false;
         }
     }

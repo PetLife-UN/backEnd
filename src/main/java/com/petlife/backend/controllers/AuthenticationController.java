@@ -12,7 +12,10 @@ import com.petlife.backend.requestModels.response.MessageResponse;
 import com.petlife.backend.requestModels.request.RegisterRequest;
 import com.petlife.backend.services.SendEmailService;
 import com.petlife.backend.security.UserDetailsImpl;
+import com.petlife.backend.services.UserService;
+import io.jsonwebtoken.impl.crypto.MacValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,7 +38,7 @@ public class AuthenticationController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @Autowired
     RoleRepository roleRepository;
@@ -51,28 +54,37 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        User user = userService.findByEmail(loginRequest.getUsername());
+        if(user != null){
+            if(user.isActivated()){
+                Authentication authentication = authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                String jwt = jwtUtils.generateJwtToken(authentication);
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
+                UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+                List<String> roles = userDetails.getAuthorities().stream()
+                        .map(item -> item.getAuthority())
+                        .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles,
-                jwt));
+                return ResponseEntity.ok(new JwtResponse(
+                        userDetails.getId(),
+                        userDetails.getUsername(),
+                        userDetails.getEmail(),
+                        roles,
+                        jwt));
+            }
+            return new ResponseEntity<>(new MessageResponse("Usuario no activado"),HttpStatus.FORBIDDEN );
+        }
+        return new ResponseEntity<>(new MessageResponse("Usuario no registrado"),HttpStatus.NOT_FOUND );
+
+
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest signUpRequest) {
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if (userService.existByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
@@ -116,9 +128,23 @@ public class AuthenticationController {
             });
         }
         user.setRoles(roles);
-        userRepository.save(user);
-        sendEmailService.sendEmail(user.getEmail(), "Welcome to pet day", "Aqui va el token ");
+        userService.save(user);
+        sendEmailService.sendEmail(user.getEmail(), "Welcome to pet day", user.getActivationToken(), "http://localhost:8080/activate");
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @PostMapping("/activate/{token}")
+    public ResponseEntity<?> activateAccount(@PathVariable String token) {
+        User user = userService.findByActivationToken(token);
+        if(user != null){
+            if(!user.isActivated()){
+                user.setActivated(true);
+                userService.update(user);
+                return ResponseEntity.ok(new MessageResponse("Account is now activated"));
+            }
+            return new ResponseEntity<>(new MessageResponse("Account already activated"), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(new MessageResponse("Account not found"), HttpStatus.NOT_FOUND);
     }
 }
