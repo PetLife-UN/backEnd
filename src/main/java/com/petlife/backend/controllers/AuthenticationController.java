@@ -11,7 +11,7 @@ import com.petlife.backend.requestModels.request.LoginRequest;
 import com.petlife.backend.requestModels.response.MessageResponse;
 import com.petlife.backend.requestModels.request.RegisterRequest;
 import com.petlife.backend.services.SendEmailService;
-import com.petlife.backend.services.UserDetailsImpl;
+import com.petlife.backend.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -117,12 +117,8 @@ public class AuthenticationController {
         }
         user.setRoles(roles);
         userRepository.save(user);
+        sendEmailService.sendEmail(user.getEmail(), "Welcome to pet day", "Aqui va el token ");
 
-        try{
-            sendEmailService.sendEmail(user.getEmail(), "Welcome to pet day", "Aqui va el token ");
-        }catch(Exception e){
-            System.out.println("There is a mistake");
-        }
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }

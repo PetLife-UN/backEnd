@@ -1,5 +1,6 @@
 package com.petlife.backend.services;
 
+import com.petlife.backend.security.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

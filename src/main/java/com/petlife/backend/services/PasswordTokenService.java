@@ -18,6 +18,9 @@ public class PasswordTokenService {
     @Autowired
     PasswordTokenRepository repository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
     @Value("${petLife.app.jwtSecret}")
     private String jwtSc;
@@ -56,6 +59,10 @@ public class PasswordTokenService {
     public Integer isExpired(PasswordToken token){
         Date expirationTime = Jwts.parser().setSigningKey(jwtSc).parseClaimsJws(token.getToken()).getBody().getExpiration();
         return new Date().compareTo(expirationTime);
+    }
+
+    public String encryptPassword(String password) {
+        return passwordEncoder.encode(password);
     }
 
 }
