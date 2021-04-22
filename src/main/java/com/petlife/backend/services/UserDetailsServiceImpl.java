@@ -2,6 +2,7 @@ package com.petlife.backend.services;
 
 import com.petlife.backend.models.User;
 import com.petlife.backend.repositories.UserRepository;
+import com.petlife.backend.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

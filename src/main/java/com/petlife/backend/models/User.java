@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(	name = "users",
@@ -38,6 +39,12 @@ public class User {
     @Size(max = 120)
     private String cellPhoneNumber;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean isActivated;
+
+    @NotBlank
+    private String activationToken;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -50,6 +57,7 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.cellPhoneNumber = cellPhoneNumber;
+        this.activationToken = UUID.nameUUIDFromBytes(email.getBytes()).toString();
     }
 
     public User(){
@@ -116,5 +124,19 @@ public class User {
         this.roles = roles;
     }
 
+    public boolean isActivated() {
+        return isActivated;
+    }
 
+    public void setActivated(boolean activated) {
+        isActivated = activated;
+    }
+
+    public String getActivationToken() {
+        return activationToken;
+    }
+
+    public void setActivationToken(String activationToken) {
+        this.activationToken = activationToken;
+    }
 }
