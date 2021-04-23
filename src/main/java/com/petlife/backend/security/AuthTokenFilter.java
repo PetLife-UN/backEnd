@@ -1,5 +1,6 @@
-package com.petlife.backend.jwt;
+package com.petlife.backend.security;
 
+import com.petlife.backend.services.JwtServices;
 import com.petlife.backend.services.UserDetailsServiceImpl;
 import java.io.IOException;
 
@@ -20,7 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
-    private JwtUtil jwtUtils;
+    private JwtServices jwtUtils;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;

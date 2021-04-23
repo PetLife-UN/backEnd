@@ -1,4 +1,4 @@
-package com.petlife.backend.requestModels;
+package com.petlife.backend.requestModels.response;
 
 public class MessageResponse {
     private String message;
