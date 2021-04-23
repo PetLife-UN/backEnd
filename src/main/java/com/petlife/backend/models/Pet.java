@@ -19,7 +19,6 @@ public class Pet {
         @Size(max = 50)
         private String nombre;
 
-
         private Integer edad;
 
         @NotBlank
