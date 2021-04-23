@@ -6,7 +6,6 @@ import com.petlife.backend.models.eTipoMascota;
 
 import javax.persistence.ElementCollection;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +13,8 @@ public class PublishPetRequest {
 
     @NotBlank
     private String nombre;
-
     @NotBlank
     private Integer edad;
-
     @NotBlank
     private eEsteril esteril;
 
@@ -32,12 +29,10 @@ public class PublishPetRequest {
 
     @NotBlank
     private eTamaño tamano;
-
-    @NotBlank
-    private String descripicon;
-
     @NotBlank
     private boolean vacunada;
+    @NotBlank
+    private String descripcion;
 
     @NotBlank
     private String token;
@@ -106,12 +101,12 @@ public class PublishPetRequest {
         this.tamano = tamano;
     }
 
-    public String getDescripicon() {
-        return descripicon;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripicon(String descripicon) {
-        this.descripicon = descripicon;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public boolean isVacunada() {
