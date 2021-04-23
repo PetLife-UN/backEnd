@@ -39,9 +39,16 @@ public class PublishPetRequest {
     @NotBlank
     private boolean vacunada;
 
+    @NotBlank
+    private String token;
+
     @ElementCollection
     private List<String> links_fotos = new ArrayList<String>();
 
+    /*
+    *   aqui debería ir el token?
+    *
+    * */
 
     public String getNombre() {
         return nombre;

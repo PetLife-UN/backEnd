@@ -1,5 +1,7 @@
 package com.petlife.backend.models;
 
+import com.petlife.backend.requestModels.request.PublishPetRequest;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -53,6 +55,20 @@ public class Pet {
 
         public Pet(String nombre,Integer edad,eEsteril esteril, eTipoMascota tipo, String sexo , String raza ,
                    eTamaño tamano, String descripcion, boolean vacunada, boolean adoptado ){
+                this.nombre=nombre;
+                this.edad=edad;
+                this.esteril=esteril;
+                this.tipo=tipo;
+                this.sexo=sexo;
+                this.raza=raza;
+                this.tamano=tamano;
+                this.descripcion=descripcion;
+                this.vacunada=vacunada;
+                this.adoptado=adoptado;
+
+        }
+
+        public Pet(PublishPetRequest s){
                 this.nombre=nombre;
                 this.edad=edad;
                 this.esteril=esteril;
