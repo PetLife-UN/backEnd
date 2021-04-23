@@ -4,9 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(	name = "pet")
@@ -38,11 +36,12 @@ public class Pet {
         private eTamaño tamano;
 
         @Size(max = 500)
-        private String descripicon;
+        private String descripcion;
 
 
         private boolean vacunada;
 
+        private boolean adoptado;
         @ElementCollection
         private List<String> links_fotos = new ArrayList<String>();
 
@@ -51,7 +50,22 @@ public class Pet {
         private User user_id;
 
 
-        private boolean adoptado;
+
+        public Pet(String nombre,Integer edad,eEsteril esteril, eTipoMascota tipo, String sexo , String raza ,
+                   eTamaño tamano, String descripcion, boolean vacunada, boolean adoptado ){
+                this.nombre=nombre;
+                this.edad=edad;
+                this.esteril=esteril;
+                this.tipo=tipo;
+                this.sexo=sexo;
+                this.raza=raza;
+                this.tamano=tamano;
+                this.descripcion=descripcion;
+                this.vacunada=vacunada;
+                this.adoptado=adoptado;
+
+        }
+
 
 
         public Long getId() {
@@ -114,12 +128,12 @@ public class Pet {
                 this.tamano = tamano;
         }
 
-        public String getDescripicon() {
-                return descripicon;
+        public String getDescripcion() {
+                return descripcion;
         }
 
-        public void setDescripicon(String descripicon) {
-                this.descripicon = descripicon;
+        public void setDescripcion(String descripcion) {
+                this.descripcion = descripcion;
         }
 
         public boolean isVacunada() {
