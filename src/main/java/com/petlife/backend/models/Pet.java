@@ -43,7 +43,7 @@ public class Pet {
         private boolean vacunada;
 
         private boolean adoptado;
-        @ElementCollection
+
         private String link_foto;
 
         @ManyToOne(fetch = FetchType.LAZY)

@@ -19,13 +19,12 @@ import java.util.Set;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/publish")
-
 @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 public class PublicationController {
     @Autowired
     PetService petService;
 
-    @PostMapping("/publish-pet")
+    @PostMapping("/new-publish")
     public ResponseEntity<?> registerUser(PublishPetRequest publishRequest) {
 
         // Create new user's account
@@ -33,7 +32,5 @@ public class PublicationController {
         petService.save(pet);
 
         return ResponseEntity.ok(new MessageResponse("Mascota Publicada Satisfactoriamente"));
-
     }
-
 }

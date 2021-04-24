@@ -29,16 +29,14 @@ public class PublishPetRequest {
 
     @NotBlank
     private eTamaño tamano;
+
     @NotBlank
     private boolean vacunada;
+
     @NotBlank
     private String descripcion;
 
-    @NotBlank
-    private String token;
-
-    @ElementCollection
-    private List<String> links_fotos = new ArrayList<String>();
+    private String link_foto ;
 
     /*
     *   aqui debería ir el token?
@@ -117,11 +115,11 @@ public class PublishPetRequest {
         this.vacunada = vacunada;
     }
 
-    public List<String> getLinks_fotos() {
-        return links_fotos;
+    public String getLinks_fotos() {
+        return link_foto;
     }
 
-    public void setLinks_fotos(List<String> links_fotos) {
-        this.links_fotos = links_fotos;
+    public void setLink_foto(String links_fotos) {
+        this.link_foto = links_fotos;
     }
 }
