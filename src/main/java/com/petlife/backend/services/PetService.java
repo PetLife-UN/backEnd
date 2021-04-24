@@ -33,6 +33,19 @@ public class PetService {
 
     }
 
+    public List<Pet> getAll() {
+
+        try
+        {
+            return petRepository.findAll();
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+
+    }
+
 
     public boolean delete(Long id) {
         try {
