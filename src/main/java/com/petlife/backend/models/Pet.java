@@ -5,7 +5,6 @@ import com.petlife.backend.requestModels.request.PublishPetRequest;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -45,7 +44,7 @@ public class Pet {
 
         private boolean adoptado;
         @ElementCollection
-        private List<String> links_fotos = new ArrayList<String>();
+        private String link_foto;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "user_id")
@@ -54,7 +53,7 @@ public class Pet {
 
 
         public Pet(String nombre,Integer edad,eEsteril esteril, eTipoMascota tipo, String sexo , String raza ,
-                   eTamaño tamano, String descripcion, boolean vacunada, boolean adoptado ){
+                   eTamaño tamano, String descripcion, boolean vacunada, boolean adoptado, String link_foto ){
                 this.nombre=nombre;
                 this.edad=edad;
                 this.esteril=esteril;
@@ -65,20 +64,21 @@ public class Pet {
                 this.descripcion=descripcion;
                 this.vacunada=vacunada;
                 this.adoptado=adoptado;
+                this.link_foto=link_foto;
 
         }
 
         public Pet(PublishPetRequest s){
-                this.nombre=nombre;
-                this.edad=edad;
-                this.esteril=esteril;
-                this.tipo=tipo;
-                this.sexo=sexo;
-                this.raza=raza;
-                this.tamano=tamano;
-                this.descripcion=descripcion;
-                this.vacunada=vacunada;
-                this.adoptado=adoptado;
+                this.nombre= s.getNombre();
+                this.edad= s.getEdad();
+                this.esteril= s.getEsteril();
+                this.tipo= s.getTipo();
+                this.sexo= s.getSexo();
+                this.raza= s.getRaza();
+                this.tamano= s.getTamano();
+                this.descripcion= s.getDescripcion();
+                this.vacunada= s.isVacunada();
+                this.adoptado=false;
 
         }
 
@@ -160,12 +160,12 @@ public class Pet {
                 this.vacunada = vacunada;
         }
 
-        public List<String> getLinks_fotos() {
-                return links_fotos;
+        public String getLinks_foto() {
+                return link_foto;
         }
 
-        public void setLinks_fotos(List<String> links_fotos) {
-                this.links_fotos = links_fotos;
+        public void setLink_foto(String link_foto) {
+                this.link_foto = link_foto;
         }
 
         public User getUser_id() {
