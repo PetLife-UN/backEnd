@@ -16,10 +16,10 @@ public class PublishPetRequest {
     @NotBlank
     private Integer edad;
     @NotBlank
-    private eEsteril esteril;
+    private String esteril;
 
     @NotBlank
-    private eTipoMascota tipo;
+    private String tipo;
 
     @NotBlank
     private String sexo;
@@ -28,7 +28,7 @@ public class PublishPetRequest {
     private String raza;
 
     @NotBlank
-    private eTamaño tamano;
+    private String tamano;
 
     @NotBlank
     private boolean vacunada;
@@ -36,12 +36,9 @@ public class PublishPetRequest {
     @NotBlank
     private String descripcion;
 
+
     private String link_foto ;
 
-    /*
-    *   aqui debería ir el token?
-    *
-    * */
 
     public String getNombre() {
         return nombre;
@@ -59,19 +56,19 @@ public class PublishPetRequest {
         this.edad = edad;
     }
 
-    public eEsteril getEsteril() {
+    public String getEsteril() {
         return esteril;
     }
 
-    public void setEsteril(eEsteril esteril) {
+    public void setEsteril(String esteril) {
         this.esteril = esteril;
     }
 
-    public eTipoMascota getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(eTipoMascota tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
@@ -91,11 +88,11 @@ public class PublishPetRequest {
         this.raza = raza;
     }
 
-    public eTamaño getTamano() {
+    public String getTamano() {
         return tamano;
     }
 
-    public void setTamano(eTamaño tamano) {
+    public void setTamano(String tamano) {
         this.tamano = tamano;
     }
 

@@ -11,13 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
-    /*
-    *   Aqui quiero agregar que me busque las mascotas dado el id o nombre del usuario que las publicó
-    *   Sprint 3
-    *
-    *
-    *
-    * */
+
     Optional<Pet> findById(Long id);
     Optional<Pet> findByTipo(eTipoMascota id);
 }

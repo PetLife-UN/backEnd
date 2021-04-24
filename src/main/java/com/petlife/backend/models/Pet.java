@@ -5,10 +5,9 @@ import com.petlife.backend.requestModels.request.PublishPetRequest;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity
-@Table(	name = "pet")
+@Table(	name = "pets")
 public class Pet {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +20,10 @@ public class Pet {
         private Integer edad;
 
         @NotBlank
-        private eEsteril esteril;
+        private String esteril;
 
         @NotBlank
-        private eTipoMascota tipo;
+        private String tipo;
 
         @NotBlank
         @Size(max = 10)
@@ -34,7 +33,7 @@ public class Pet {
         private String raza;
 
         @NotBlank
-        private eTamaño tamano;
+        private String tamano;
 
         @Size(max = 500)
         private String descripcion;
@@ -48,12 +47,12 @@ public class Pet {
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "user_id")
-        private User user_id;
+        private User user;
 
 
 
-        public Pet(String nombre,Integer edad,eEsteril esteril, eTipoMascota tipo, String sexo , String raza ,
-                   eTamaño tamano, String descripcion, boolean vacunada, boolean adoptado, String link_foto ){
+        public Pet(String nombre,Integer edad,String esteril, String tipo, String sexo , String raza ,
+                   String tamano, String descripcion, boolean vacunada, boolean adoptado, String link_foto, User user ){
                 this.nombre=nombre;
                 this.edad=edad;
                 this.esteril=esteril;
@@ -65,10 +64,10 @@ public class Pet {
                 this.vacunada=vacunada;
                 this.adoptado=adoptado;
                 this.link_foto=link_foto;
-
+                this.user=user;
         }
 
-        public Pet(PublishPetRequest s){
+        public Pet(PublishPetRequest s, User uid){
                 this.nombre= s.getNombre();
                 this.edad= s.getEdad();
                 this.esteril= s.getEsteril();
@@ -78,6 +77,7 @@ public class Pet {
                 this.tamano= s.getTamano();
                 this.descripcion= s.getDescripcion();
                 this.vacunada= s.isVacunada();
+                this.user =uid;
                 this.adoptado=false;
 
         }
@@ -104,19 +104,19 @@ public class Pet {
                 this.edad = edad;
         }
 
-        public eEsteril getEsteril() {
+        public String getEsteril() {
                 return esteril;
         }
 
-        public void setEsteril(eEsteril esteril) {
+        public void setEsteril(String esteril) {
                 this.esteril = esteril;
         }
 
-        public eTipoMascota getTipo() {
+        public String getTipo() {
                 return tipo;
         }
 
-        public void setTipo(eTipoMascota tipo) {
+        public void setTipo(String tipo) {
                 this.tipo = tipo;
         }
 
@@ -136,11 +136,11 @@ public class Pet {
                 this.raza = raza;
         }
 
-        public eTamaño getTamano() {
+        public String getTamano() {
                 return tamano;
         }
 
-        public void setTamano(eTamaño tamano) {
+        public void setTamano(String tamano) {
                 this.tamano = tamano;
         }
 
@@ -168,12 +168,12 @@ public class Pet {
                 this.link_foto = link_foto;
         }
 
-        public User getUser_id() {
-                return user_id;
+        public User getUser() {
+                return user;
         }
 
-        public void setUser_id(User user_id) {
-                this.user_id = user_id;
+        public void setUser(User user) {
+                this.user = user;
         }
 
         public boolean isAdoptado() {
@@ -182,6 +182,11 @@ public class Pet {
 
         public void setAdoptado(boolean adoptado) {
                 this.adoptado = adoptado;
+        }
+
+        @Override
+        public String toString(){
+                return this.nombre+","+this.edad+", usuario:";
         }
 
 
