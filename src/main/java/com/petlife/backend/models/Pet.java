@@ -82,7 +82,19 @@ public class Pet {
 
         }
 
+        public Pet(Long id, String nombre, Integer edad, String tipo, String raza, String link_foto, User user) {
+                this.id = id;
+                this.nombre = nombre;
+                this.edad = edad;
+                this.tipo = tipo;
+                this.raza = raza;
+                this.link_foto = link_foto;
+                this.user = user;
+        }
 
+        public Pet(){
+
+        }
 
         public Long getId() {
                 return id;
