@@ -6,6 +6,10 @@ import com.petlife.backend.models.User;
 import com.petlife.backend.repositories.PetRepository;
 import com.petlife.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +37,7 @@ public class PetService {
 
     }
 
-    public List<Pet> getAll() {
+    public List<Pet> findAll() {
 
         try
         {
@@ -44,6 +48,29 @@ public class PetService {
             return null;
         }
 
+    }
+
+
+    public Pet getPetById(long Id){
+        try
+        {
+            return petRepository.getPetById(Id);
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+    }
+
+    public Page<Pet> getShortPetsInfoPage(Boolean adopted, Integer page, Integer size ){
+        try
+        {
+            return petRepository.getShortPetsInfoPage(adopted, PageRequest.of(page,size));
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
     }
 
 

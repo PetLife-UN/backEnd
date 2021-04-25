@@ -2,6 +2,7 @@ package com.petlife.backend.controllers;
 
 import com.petlife.backend.models.Pet;
 import com.petlife.backend.repositories.PetRepository;
+import com.petlife.backend.services.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,22 +25,24 @@ public class PetController {
     @Autowired
     PetRepository petRepository;
 
+    @Autowired
+    PetService petService;
 
     @GetMapping("/consultaAll")
     public @ResponseBody ResponseEntity<?> consultaPetalt() {
-        List<Pet> pets = petRepository.findAll();
+        List<Pet> pets = petService.findAll();
         return new ResponseEntity<List<Pet>>(pets, HttpStatus.OK);
     }
 
     @GetMapping("/consulta")
     public @ResponseBody ResponseEntity<?> consultaPetBasicaPages(@RequestParam Optional<Boolean> adopted,@RequestParam Optional<Integer> page,@RequestParam Optional<Integer> size) {
-        Page<Pet> pets = petRepository.getShortPetsInfoPage( adopted.orElse(Boolean.FALSE), PageRequest.of(page.orElse(0),size.orElse(6)));
-        return new ResponseEntity<Page<Pet>>( pets, HttpStatus.OK);
+        Page<Pet> pets = petService.getShortPetsInfoPage(adopted.orElse(Boolean.FALSE), page.orElse(0),size.orElse(6));
+        return new ResponseEntity<Page<Pet>>(pets, HttpStatus.OK);
     }
 
     @GetMapping("/consultaPet")
     public @ResponseBody ResponseEntity<?> consultaPetId(@RequestParam Long idPet) {
-        Pet pet = petRepository.getPetById(idPet);
+        Pet pet = petService.getPetById(idPet);
         return new ResponseEntity <Pet>( pet, HttpStatus.OK);
     }
 

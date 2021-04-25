@@ -43,7 +43,7 @@ public class ListPublicationController {
 
     public ResponseEntity<?> registerUser(@RequestBody PublishPetRequest publishRequest, @RequestHeader HttpHeaders header) {
 
-        petService.getAll();
+        petService.findAll();
 
         return ResponseEntity.ok(new MessageResponse("Mascota Publicada Satisfactoriamente"));
     }
