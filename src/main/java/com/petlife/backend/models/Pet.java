@@ -1,5 +1,6 @@
 package com.petlife.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.petlife.backend.requestModels.request.PublishPetRequest;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(	name = "pets")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Pet {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -90,6 +92,26 @@ public class Pet {
                 this.raza = raza;
                 this.link_foto = link_foto;
                 this.user = user;
+        }
+
+        public Pet(Long id, String nombre, Integer edad, String tipo, String raza, String link_foto) {
+                this.id = id;
+                this.nombre = nombre;
+                this.edad = edad;
+                this.tipo = tipo;
+                this.raza = raza;
+                this.link_foto = link_foto;
+        }
+
+        public Pet(Long id, String nombre, Integer edad, String tipo, String sexo, String raza, String link_foto) {
+                this.id = id;
+                this.nombre = nombre;
+                this.edad = edad;
+                this.tipo = tipo;
+                this.sexo = sexo;
+                this.raza = raza;
+                this.link_foto = link_foto;
+
         }
 
         public Pet(){

@@ -33,7 +33,7 @@ public class PetController {
 
     @GetMapping("/consulta")
     public @ResponseBody ResponseEntity<?> consultaPetBasicaPages(@RequestParam Optional<Boolean> adopted,@RequestParam Optional<Integer> page,@RequestParam Optional<Integer> size) {
-        Page<Pet> pets = petRepository.getShortPetsInfoPage( adopted.orElse(false), PageRequest.of(page.orElse(0),size.orElse(6)));
+        Page<Pet> pets = petRepository.getShortPetsInfoPage( adopted.orElse(Boolean.FALSE), PageRequest.of(page.orElse(0),size.orElse(6)));
         return new ResponseEntity<Page<Pet>>( pets, HttpStatus.OK);
     }
 
@@ -42,6 +42,7 @@ public class PetController {
         Pet pet = petRepository.getPetById(idPet);
         return new ResponseEntity <Pet>( pet, HttpStatus.OK);
     }
+
 
 
 }

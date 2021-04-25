@@ -9,10 +9,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
 
+@RestController
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
 
@@ -20,11 +22,17 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     Optional<Pet> findByTipo(eTipoMascota id);
 
 
-    @Query("select new Pet(p.id,p.nombre,p.edad,p.tipo,p.raza,p.link_foto,p.user)  " +
+    @Query("select new Pet(p.id, p.nombre, p.edad, p.tipo, p.sexo, p.raza, p.link_foto) " +
             "from Pet p " +
             "where p.adoptado  =:#{#adopted} "+
             " order by p.id")
     Page<Pet> getShortPetsInfoPage(@Param("adopted") Boolean adopted, Pageable pageable);
+
+    @Query("select new Pet(p.id, p.nombre, p.edad, p.tipo, p.sexo, p.raza, p.link_foto) " +
+            "from Pet as p " +
+            " order by p.id")
+    List<Pet> getAllalt();
+
 
     Pet getPetById(long Id);
 
