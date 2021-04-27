@@ -115,6 +115,21 @@ public class Pet {
 
         }
 
+        public Pet(Long id, String nombre, Integer edad, String esteril, String tipo, String sexo, String raza, String tamano, String descripcion, boolean vacunada, boolean adoptado, String link_foto) {
+                this.id = id;
+                this.nombre = nombre;
+                this.edad = edad;
+                this.esteril = esteril;
+                this.tipo = tipo;
+                this.sexo = sexo;
+                this.raza = raza;
+                this.tamano = tamano;
+                this.descripcion = descripcion;
+                this.vacunada = vacunada;
+                this.adoptado = adoptado;
+                this.link_foto = link_foto;
+        }
+
         public Pet(){
 
         }

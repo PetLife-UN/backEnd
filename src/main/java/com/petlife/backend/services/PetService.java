@@ -54,7 +54,7 @@ public class PetService {
     public Pet getPetById(long Id){
         try
         {
-            return petRepository.getPetById(Id);
+            return petRepository.getShortPetByIdAlt(Id);
         }
         catch(Exception e)
         {
