@@ -11,7 +11,9 @@ import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
 public class PetLifeBackApplication {
+
     public static void main(String[] args) {
     	SpringApplication.run(PetLifeBackApplication.class, args);
     }
+
 }

@@ -1,19 +1,20 @@
-package com.petlife.backend.requestModels;
+package com.petlife.backend.requestModels.request;
 
 import javax.validation.constraints.NotBlank;
 
-public class LoginRequest {
+public class PasswordChangeRequest {
     @NotBlank
-    private String username;
+    private String token;
+
     @NotBlank
     private String password;
 
-    public String getUsername() {
-        return username;
+    public String getToken() {
+        return token;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getPassword() {

@@ -1,6 +1,6 @@
-package com.petlife.backend.jwt;
+package com.petlife.backend.services;
 
-import com.petlife.backend.services.UserDetailsImpl;
+import com.petlife.backend.security.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-public class JwtUtil {
-    private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
+public class JwtServices {
+    private static final Logger logger = LoggerFactory.getLogger(JwtServices.class);
 
     @Value("${petLife.app.jwtSecret}")
     private String jwtSc;
@@ -35,6 +35,11 @@ public class JwtUtil {
         return Jwts.parser().setSigningKey(jwtSc).parseClaimsJws(token).getBody().getSubject();
     }
 
+    public Integer checkIfExpired(String token){
+        Date expiration = Jwts.parser().setSigningKey(jwtSc).parseClaimsJws(token).getBody().getExpiration();
+        return new Date().compareTo(expiration);
+    }
+
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSc).parseClaimsJws(authToken);
@@ -53,4 +58,5 @@ public class JwtUtil {
 
         return false;
     }
+
 }
