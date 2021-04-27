@@ -79,6 +79,7 @@ public class Pet {
                 this.tamano= s.getTamano();
                 this.descripcion= s.getDescripcion();
                 this.vacunada= s.isVacunada();
+                this.link_foto=s.getLinks_fotos();
                 this.user =uid;
                 this.adoptado=false;
 
