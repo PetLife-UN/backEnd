@@ -1,4 +1,4 @@
-package com.petlife.backend.services;
+package com.petlife.backend.security;
 
 import com.petlife.backend.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -1,4 +1,4 @@
-package com.petlife.backend.requestModels;
+package com.petlife.backend.requestModels.response;
 
 import java.util.List;
 

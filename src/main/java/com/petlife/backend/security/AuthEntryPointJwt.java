@@ -1,4 +1,4 @@
-package com.petlife.backend.jwt;
+package com.petlife.backend.security;
 
 import java.io.IOException;
 
