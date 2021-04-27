@@ -1,5 +1,6 @@
 package com.petlife.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.petlife.backend.requestModels.request.PublishPetRequest;
 
@@ -49,6 +50,8 @@ public class Pet {
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "user_id")
+
+        @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
         private User user;
 
 
