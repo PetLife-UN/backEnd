@@ -35,9 +35,15 @@ public class JwtServices {
         return Jwts.parser().setSigningKey(jwtSc).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public Integer checkIfExpired(String token){
-        Date expiration = Jwts.parser().setSigningKey(jwtSc).parseClaimsJws(token).getBody().getExpiration();
-        return new Date().compareTo(expiration);
+    public boolean checkIfExpired(String token){
+        try {
+            Date expiration = Jwts.parser().setSigningKey(jwtSc).parseClaimsJws(token).getBody().getExpiration();
+            return false;
+        }
+        catch (ExpiredJwtException e){
+            logger.error(e.getMessage());
+            return true;
+        }
     }
 
     public boolean validateJwtToken(String authToken) {

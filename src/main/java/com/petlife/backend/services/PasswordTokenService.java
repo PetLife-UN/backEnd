@@ -56,10 +56,6 @@ public class PasswordTokenService {
         return Jwts.parser().setSigningKey(jwtSc).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public Integer isExpired(PasswordToken token){
-        Date expirationTime = Jwts.parser().setSigningKey(jwtSc).parseClaimsJws(token.getToken()).getBody().getExpiration();
-        return new Date().compareTo(expirationTime);
-    }
 
     public String encryptPassword(String password) {
         return passwordEncoder.encode(password);
