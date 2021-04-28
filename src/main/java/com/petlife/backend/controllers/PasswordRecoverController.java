@@ -34,7 +34,7 @@ public class PasswordRecoverController {
         User user = userService.findByEmail(email);
         if(user != null){
             PasswordToken token = passwordTokenService.generatePasswordRecoveryToken(user);
-            String url = "https://petlifeun.netlify.app/password/" + token.getToken();
+            String url = "http://192.168.235.125:8081/password/" + token.getToken();
 
             String text = "<div><h3>Solicitud de reestablecimiento de contraseña</h3>" +
                     "<h4>¡Hola!</h4><p>Hemos recibido una solicitud para el cambio de contraseña a la cuenta enlazada a éste correo, si fuiste tu por favor sigue el proceso en el siguiente enlace que te brindaremos." +
