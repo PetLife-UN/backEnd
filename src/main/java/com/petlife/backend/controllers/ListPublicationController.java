@@ -40,8 +40,7 @@ public class ListPublicationController {
     JwtServices jwtServices;
 
     @PostMapping("/list-publish")
-
-    public ResponseEntity<?> registerUser(@RequestBody PublishPetRequest publishRequest, @RequestHeader HttpHeaders header) {
+    public ResponseEntity<?> registerUser(@RequestBody PublishPetRequest publishRequest) {
 
         petService.findAll();
 

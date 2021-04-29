@@ -23,7 +23,7 @@ public class TokenController {
     @PostMapping(value = "/expired/{tokenString}")
     public ResponseEntity<String> checkIfTokenIsExpired(@PathVariable String tokenString){
 
-        if(jwtUtils.checkIfExpired(tokenString) <= 0){
+        if(!jwtUtils.checkIfExpired(tokenString)){
             return ResponseEntity.ok().body("Token valid.");
         }else{
             return ResponseEntity.badRequest().body("Token expired.");

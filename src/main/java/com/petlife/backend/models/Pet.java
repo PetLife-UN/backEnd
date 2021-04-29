@@ -1,5 +1,6 @@
 package com.petlife.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.petlife.backend.requestModels.request.PublishPetRequest;
 
@@ -49,6 +50,8 @@ public class Pet {
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "user_id")
+
+        @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
         private User user;
 
 
@@ -113,6 +116,21 @@ public class Pet {
                 this.raza = raza;
                 this.link_foto = link_foto;
 
+        }
+
+        public Pet(Long id, String nombre, Integer edad, String esteril, String tipo, String sexo, String raza, String tamano, String descripcion, boolean vacunada, boolean adoptado, String link_foto) {
+                this.id = id;
+                this.nombre = nombre;
+                this.edad = edad;
+                this.esteril = esteril;
+                this.tipo = tipo;
+                this.sexo = sexo;
+                this.raza = raza;
+                this.tamano = tamano;
+                this.descripcion = descripcion;
+                this.vacunada = vacunada;
+                this.adoptado = adoptado;
+                this.link_foto = link_foto;
         }
 
         public Pet(){

@@ -10,6 +10,7 @@ import com.petlife.backend.requestModels.response.JwtResponse;
 import com.petlife.backend.requestModels.request.LoginRequest;
 import com.petlife.backend.requestModels.response.MessageResponse;
 import com.petlife.backend.requestModels.request.RegisterRequest;
+import com.petlife.backend.services.PasswordTokenService;
 import com.petlife.backend.services.SendEmailService;
 import com.petlife.backend.security.UserDetailsImpl;
 import com.petlife.backend.services.UserService;
@@ -44,7 +45,7 @@ public class AuthenticationController {
     RoleRepository roleRepository;
 
     @Autowired
-    PasswordEncoder encoder;
+    PasswordTokenService passwordTokenService;
 
     @Autowired
     JwtServices jwtUtils;
@@ -53,7 +54,7 @@ public class AuthenticationController {
     private SendEmailService sendEmailService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         User user = userService.findByEmail(loginRequest.getUsername());
         if(user != null){
             if(user.isActivated()){
@@ -83,7 +84,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest signUpRequest) {
         if (userService.existByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
@@ -92,7 +93,7 @@ public class AuthenticationController {
 
         // Create new user's account
         User user = new User(signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()),
+                passwordTokenService.encryptPassword(signUpRequest.getPassword()),
                 signUpRequest.getName(),
                 signUpRequest.getSurname(),
                 signUpRequest.getCellPhoneNumber()
@@ -129,7 +130,7 @@ public class AuthenticationController {
         }
         user.setRoles(roles);
         userService.save(user);
-        sendEmailService.sendEmail(user.getEmail(), "Welcome to pet day", user.getActivationToken(), "http://localhost:8080/activate");
+        sendEmailService.sendEmail(user.getEmail(), "Welcome to pet day", user.getActivationToken(), "http://192.168.235.125:8081/activate");
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
