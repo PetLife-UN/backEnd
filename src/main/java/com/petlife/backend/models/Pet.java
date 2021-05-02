@@ -7,6 +7,8 @@ import com.petlife.backend.requestModels.request.PublishPetRequest;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(	name = "pets")
@@ -54,6 +56,8 @@ public class Pet {
         @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
         private User user;
 
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "pet")
+        private Set<ApplicationForm> applications = new HashSet();
 
 
         public Pet(String nombre,Integer edad,String esteril, String tipo, String sexo , String raza ,
