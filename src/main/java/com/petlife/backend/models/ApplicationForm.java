@@ -67,7 +67,7 @@ public class ApplicationForm {
     private Boolean familyAgreement;
 
     @NotBlank
-    @Size(max = 300)
+    @Size(max = 600)
     private String reason;
 
     @NotBlank
