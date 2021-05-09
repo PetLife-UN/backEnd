@@ -350,14 +350,14 @@ public class ApplicationForm {
     public ApplicationForm(ApplyForm apf, Pet pet_id){
         this.name = apf.getName();
         this.email = apf.getEmail();
-        this.telNumber = (apf.getTelNumber() != null)? apf.getTelNumber(): "";
+        this.telNumber = (!apf.getTelNumber().equals(""))? apf.getTelNumber(): "No aplica";
         this.movilNumber = apf.getMovilNumber();
         this.date = apf.getDate();
         this.city = apf.getCity();
         this.department = apf.getDepartment();
         this.address = apf.getAddress();
         this.age = apf.getAge();
-        this.occupation = (apf.getOccupation() != null)? apf.getOccupation(): "";
+        this.occupation = (!apf.getOccupation().equals(""))? apf.getOccupation(): "Confidencial";
         this.familyMembers = apf.getFamilyMembers();
         this.averageAge = (apf.getAverageAge() != 0)? apf.getAverageAge(): 0;
         this.whoAutho = apf.getWhoAutho();
@@ -367,12 +367,12 @@ public class ApplicationForm {
         this.careOption = apf.getCareOption();
         this.allergies = apf.isAllergies();
         this.animalExperience = apf.isAnimalExperience();
-        this.experienceType = (apf.getExperienceType() != null)? apf.getExperienceType(): "No aplica";
+        this.experienceType = (!apf.getExperienceType().equals(""))? apf.getExperienceType(): "No aplica";
         this.experienceLife = (apf.getExperienceLife() != 0)? apf.getExperienceLife(): 0;
-        this.experienceNow  = (apf.getExperienceNow() != null)? apf.getExperienceNow(): "No aplica";
-        this.experienceReason = (apf.getExperienceReason() != null)? apf.getExperienceReason(): "No aplica";
+        this.experienceNow  = (!apf.getExperienceNow().equals(""))? apf.getExperienceNow(): "No aplica";
+        this.experienceReason = (!apf.getExperienceReason().equals(""))? apf.getExperienceReason(): "No aplica";
         this.adjustmentPeriod = apf.isAdjustmentPeriod();
-        this.adjustmentPeriodTime = (apf.isAdjustmentPeriodTime() != null)? apf.isAdjustmentPeriodTime(): "No aplica";
+        this.adjustmentPeriodTime = (!apf.isAdjustmentPeriodTime().equals("") )? apf.isAdjustmentPeriodTime(): "No aplica";
         this.followingAgreement = apf.isFollowingAgreement();
         this.communication = apf.getCommunication();
         this.pet = pet_id;
