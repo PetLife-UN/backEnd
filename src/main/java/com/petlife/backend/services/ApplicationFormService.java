@@ -73,7 +73,7 @@ public class ApplicationFormService {
             responseList.add(new ApplyFormResponse(apply));
         }
         Page<ApplyFormResponse> responsePage = new PageImpl<>(responseList,PageRequest.of(appPages.getNumber(),appPages.getSize()), appPages.getTotalElements() );
-        
+
         return responsePage;
     }
 
