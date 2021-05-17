@@ -1,116 +1,112 @@
-package com.petlife.backend.models;
+package com.petlife.backend.requestModels.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.petlife.backend.models.ApplicationForm;
+import com.petlife.backend.models.Pet;
 import com.petlife.backend.requestModels.request.ApplyForm;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
-@Entity
-@Table(name = "applicationForm")
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApplicationForm {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ApplyFormResponse {
+
     private Long id;
-
-    @NotBlank
-    @Size(max = 150)
     private String name;
-
-    @NotBlank
-    @Size(max = 50)
     private String email;
-
-    @Size(max = 9)
     private String telNumber;
-
-    @NotBlank
-    @Size(max = 10)
     private String movilNumber;
-
-    @NotNull
     private Date date ;
-
-    @NotBlank
-    @Size(max = 30)
     private String city;
-
-    @NotBlank
-    @Size(max = 30)
     private String department;
-
-    @NotBlank
-    @Size(max = 60)
     private String address;
-
-    @NotNull
     private int age;
-
-    @Size(max = 30)
     private String occupation;
-
-    @NotNull
     private int familyMembers;
-
     private int averageAge;
-
-    @NotBlank
-    @Size(max = 30)
     private String whoAutho;
-
-    @NotNull
     private Boolean familyAgreement;
-
-    @NotBlank
-    @Size(max = 600)
     private String reason;
-
-    @NotBlank
-    @Size(max = 100)
     private String restingPlace;
-
-    @NotBlank
-    @Size(max = 100)
     private String careOption;
-
-    @NotNull
     private boolean allergies;
-
-    @NotNull
     private boolean animalExperience;
-
-    @Size(max = 50)
     private String experienceType;
-
     private int experienceLife;
-
-    @Size(max = 90)
     private String experienceNow;
-
-    @Size(max = 50)
     private String experienceReason;
-
-    @NotNull
     private boolean adjustmentPeriod;
-
     private String adjustmentPeriodTime;
-
-    @NotNull
     private boolean followingAgreement;
-
-    @NotBlank
-    @Size(max = 25)
     private String communication;
+    private PetResponse pet;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JoinColumn(name = "pet_id", nullable = false)
-    private Pet pet;
+    public ApplyFormResponse() {
+
+    }
+
+    public ApplyFormResponse(Long id, String name, String email, String telNumber, String movilNumber, Date date, String city, String department, String address, int age, String occupation, int familyMembers, int averageAge, String whoAutho, Boolean familyAgreement, String reason, String restingPlace, String careOption, boolean allergies, boolean animalExperience, String experienceType, int experienceLife, String experienceNow, String experienceReason, boolean adjustmentPeriod, String adjustmentPeriodTime, boolean followingAgreement, String communication, Pet pet) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.telNumber = telNumber;
+        this.movilNumber = movilNumber;
+        this.date = date;
+        this.city = city;
+        this.department = department;
+        this.address = address;
+        this.age = age;
+        this.occupation = occupation;
+        this.familyMembers = familyMembers;
+        this.averageAge = averageAge;
+        this.whoAutho = whoAutho;
+        this.familyAgreement = familyAgreement;
+        this.reason = reason;
+        this.restingPlace = restingPlace;
+        this.careOption = careOption;
+        this.allergies = allergies;
+        this.animalExperience = animalExperience;
+        this.experienceType = experienceType;
+        this.experienceLife = experienceLife;
+        this.experienceNow = experienceNow;
+        this.experienceReason = experienceReason;
+        this.adjustmentPeriod = adjustmentPeriod;
+        this.adjustmentPeriodTime = adjustmentPeriodTime;
+        this.followingAgreement = followingAgreement;
+        this.communication = communication;
+        this.pet = new PetResponse(pet);
+    }
+
+    public ApplyFormResponse(ApplicationForm apply) {
+        this.id = apply.getId();
+        this.name = apply.getName();
+        this.email = apply.getEmail();
+        this.telNumber = apply.getTelNumber();
+        this.movilNumber = apply.getMovilNumber();
+        this.date = apply.getDate();
+        this.city = apply.getCity();
+        this.department = apply.getDepartment();
+        this.address = apply.getAddress();
+        this.age = apply.getAge();
+        this.occupation = apply.getOccupation();
+        this.familyMembers = apply.getFamilyMembers();
+        this.averageAge = apply.getAverageAge();
+        this.whoAutho = apply.getWhoAutho();
+        this.familyAgreement = apply.getFamilyAgreement();
+        this.reason = apply.getReason();
+        this.restingPlace = apply.getRestingPlace();
+        this.careOption = apply.getCareOption();
+        this.allergies = apply.isAllergies();
+        this.animalExperience = apply.isAnimalExperience();
+        this.experienceType = apply.getExperienceType();
+        this.experienceLife = apply.getExperienceLife();
+        this.experienceNow = apply.getExperienceNow();
+        this.experienceReason = apply.getExperienceReason();
+        this.adjustmentPeriod = apply.isAdjustmentPeriod();
+        this.adjustmentPeriodTime = apply.getAdjustmentPeriodTime();
+        this.followingAgreement = apply.isFollowingAgreement();
+        this.communication = apply.getCommunication();
+        this.pet = new PetResponse(apply.getPet());
+    }
 
     public Long getId() {
         return id;
@@ -336,47 +332,11 @@ public class ApplicationForm {
         this.communication = communication;
     }
 
-    public Pet getPet() {
+    public PetResponse getPet() {
         return pet;
     }
 
-    public void setPet(Pet pet) {
+    public void setPet(PetResponse pet) {
         this.pet = pet;
     }
-
-    public ApplicationForm() {
-    }
-
-    public ApplicationForm(ApplyForm apf, Pet pet_id){
-        this.name = apf.getName();
-        this.email = apf.getEmail();
-        this.telNumber = (!apf.getTelNumber().equals(""))? apf.getTelNumber(): "No aplica";
-        this.movilNumber = apf.getMovilNumber();
-        this.date = apf.getDate();
-        this.city = apf.getCity();
-        this.department = apf.getDepartment();
-        this.address = apf.getAddress();
-        this.age = apf.getAge();
-        this.occupation = (!apf.getOccupation().equals(""))? apf.getOccupation(): "Confidencial";
-        this.familyMembers = apf.getFamilyMembers();
-        this.averageAge = (apf.getAverageAge() != 0)? apf.getAverageAge(): 0;
-        this.whoAutho = apf.getWhoAutho();
-        this.familyAgreement = apf.getFamilyAgreement();
-        this.reason = apf.getReason();
-        this.restingPlace = apf.getRestingPlace();
-        this.careOption = apf.getCareOption();
-        this.allergies = apf.isAllergies();
-        this.animalExperience = apf.isAnimalExperience();
-        this.experienceType = (!apf.getExperienceType().equals(""))? apf.getExperienceType(): "No aplica";
-        this.experienceLife = (apf.getExperienceLife() != 0)? apf.getExperienceLife(): 0;
-        this.experienceNow  = (!apf.getExperienceNow().equals(""))? apf.getExperienceNow(): "No aplica";
-        this.experienceReason = (!apf.getExperienceReason().equals(""))? apf.getExperienceReason(): "No aplica";
-        this.adjustmentPeriod = apf.isAdjustmentPeriod();
-        this.adjustmentPeriodTime = (!apf.isAdjustmentPeriodTime().equals("") )? apf.isAdjustmentPeriodTime(): "No aplica";
-        this.followingAgreement = apf.isFollowingAgreement();
-        this.communication = apf.getCommunication();
-        this.pet = pet_id;
-    }
-
-
 }
