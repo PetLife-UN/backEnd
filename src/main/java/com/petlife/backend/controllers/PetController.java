@@ -1,17 +1,19 @@
 package com.petlife.backend.controllers;
 
 import com.petlife.backend.models.Pet;
+import com.petlife.backend.models.User;
 import com.petlife.backend.repositories.PetRepository;
+import com.petlife.backend.requestModels.response.MessageResponse;
+import com.petlife.backend.security.UserDetailsImpl;
 import com.petlife.backend.services.PetService;
+import com.petlife.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +29,9 @@ public class PetController {
 
     @Autowired
     PetService petService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/consultaAll")
     public @ResponseBody ResponseEntity<?> consultaPetalt() {
@@ -46,6 +51,17 @@ public class PetController {
         return new ResponseEntity <Pet>( pet, HttpStatus.OK);
     }
 
+    @GetMapping("/getUserPets")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<?> returnPetsfromUser(){
+        UserDetailsImpl user_auth= (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByEmail(user_auth.getUsername());
 
+        List<Pet> petList = petService.getPetsByUser(user);
+        if(!petList.isEmpty()){
+            return  ResponseEntity.ok(petService.removeUserDetails(petList));
+        }
+        return new ResponseEntity<>(new MessageResponse("User doesn't have any pets"),HttpStatus.NOT_FOUND);
+    }
 
 }

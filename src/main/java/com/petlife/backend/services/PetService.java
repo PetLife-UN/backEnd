@@ -5,6 +5,7 @@ import com.petlife.backend.models.Pet;
 import com.petlife.backend.models.User;
 import com.petlife.backend.repositories.PetRepository;
 import com.petlife.backend.repositories.UserRepository;
+import com.petlife.backend.requestModels.response.PetResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +75,15 @@ public class PetService {
         }
     }
 
+    public List<Pet> getPetsByUser(User user){
+       Optional<List<Pet>> result = petRepository.findByUser(user);
+
+        if(result.isPresent()){
+            return result.get();
+        }
+        return null;
+    }
+
 
     public boolean delete(Long id) {
         try {
@@ -108,6 +119,15 @@ public class PetService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public List<PetResponse> removeUserDetails(List<Pet> list){
+        List<PetResponse> response = new ArrayList<>();
+
+        for(Pet pet : list){
+            response.add(new PetResponse(pet));
+        }
+        return response;
     }
 
 }

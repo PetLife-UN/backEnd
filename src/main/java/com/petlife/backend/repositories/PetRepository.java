@@ -29,9 +29,6 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     Page<Pet> getShortPetsInfoPage(@Param("adopted") Boolean adopted, Pageable pageable);
 
 
-
-
-
     List<Pet> findAll();
 
     @Query("select new Pet(p.id, p.nombre, p.edad, p.esteril, p.tipo, p.sexo, p.raza, p.tamano, p.descripcion, p.vacunada, p.adoptado, p.link_foto) " +
@@ -40,8 +37,10 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
             " order by p.id")
     Pet getShortPetByIdAlt(@Param("id") long id);
 
-
-
     Pet getPetById(long Id);
+
+    Optional<List<Pet>> findByUser( User user);
+    
+
 
 }
