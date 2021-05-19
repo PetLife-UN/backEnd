@@ -53,8 +53,6 @@ public class SendEmailService {
             helper.setText(text
                     , true
             );
-            helper.addInline("Logo", new ClassPathResource("public/petlife.jpg"));
-
             javaMailSender.send(message);
         } catch (MessagingException e) {
             logger.error(e.getMessage());
