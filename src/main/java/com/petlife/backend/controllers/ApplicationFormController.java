@@ -9,6 +9,7 @@ import com.petlife.backend.security.UserDetailsImpl;
 import com.petlife.backend.services.ApplicationFormService;
 import com.petlife.backend.services.PetService;
 import com.petlife.backend.services.UserService;
+import com.petlife.backend.services.SendEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,10 @@ public class ApplicationFormController {
     UserService userService;
 
     @Autowired
+    SendEmailService emailService;
+
+
+    @Autowired
     public ApplicationFormController(ApplicationFormService applicationFormService, PetService petService){
         this.applicationFormService = applicationFormService;
         this.petService = petService;
@@ -42,8 +47,59 @@ public class ApplicationFormController {
         Pet pet = petService.findById(pet_id);
         ApplicationForm applicationForm = new ApplicationForm(applyForm, pet);
         boolean result = applicationFormService.instert(applicationForm);
-        if(result)
+        User user = pet.getUser();
+
+        if(result) {
+            String urlPetImage = pet.getLinks_foto();
+            String adopter = "<table style=\"max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;\">" +
+                    "<tr>" +
+                        "<td style=\"background-color: #ecf0f1; text-align: left; padding: 0\">"+
+                            "<img width=\"5%\" style=\"display:block; margin: 1.5% 3%\" src=\"https://i.postimg.cc/pV3qdkj2/petlife.jpg\">"+
+                        "</td>"+
+                    "</tr>" +
+                    "<tr>" +
+                        "<td style=\"padding: 0\">" +
+                            "<img style=\"padding: 0; display: block\" src="+ urlPetImage + "width=\"50%\">"+
+                        "</td>"+
+                    "</tr>" +
+                        "<td style=\"background-color: #ecf0f1\">"+
+                            "<div style=\"color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif\">"+
+                                "<h2 style=\"color: #e67e22; margin: 0 0 7px\">¡Felicitaciones!</h2>"+
+                                "<p style=\"margin: 2px; font-size: 15px\">"+
+                                    "Tu solicitud para aplicar a la adopcion de "+ pet.getNombre()+" a sido enviada :D"+
+                                "</p>"+
+                            "</div>"+
+                        "</td>" +
+                    "</tr>" +
+                    "</table>";
+
+            String publisher = "<table style=\"max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;\">" +
+                    "<tr>" +
+                        "<td style=\"background-color: #ecf0f1; text-align: left; padding: 0\">"+
+                            "<img width=\"5%\" style=\"display:block; margin: 1.5% 3%\" src=\"https://i.postimg.cc/pV3qdkj2/petlife.jpg\">"+
+                        "</td>"+
+                    "</tr>" +
+                    "<tr>" +
+                        "<td style=\"padding: 0\">" +
+                            "<img style=\"padding: 0; display: block\" src="+ urlPetImage + "width=\"50%\">"+
+                        "</td>"+
+                    "</tr>" +
+                        "<td style=\"background-color: #ecf0f1\">"+
+                            "<div style=\"color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif\">"+
+                                "<h2 style=\"color: #e67e22; margin: 0 0 7px\">¡Felicitaciones!</h2>"+
+                                "<p style=\"margin: 2px; font-size: 15px\">"+
+                                    "Haz recibido una solicitud de adopcion para "+ pet.getNombre()+". Revisa de que se trata"+
+                                "</p>"+
+                            "</div>"+
+                        "</td>" +
+                    "</tr>" +
+                    "</table>";
+
+            emailService.sendEmailPasswordRecovery(user.getEmail(), "Notificacion solicitud de adopcion",adopter);
+            emailService.sendEmailPasswordRecovery(applicationForm.getEmail(), "Notificacion solicitud de adopcion",publisher);
+
             return ResponseEntity.ok(new MessageResponse("Se ha registrado correctamente"));
+        }
         else
             return new ResponseEntity<>(new MessageResponse("No se ha podido registrar la solicitud"), HttpStatus.NOT_FOUND);
     }
