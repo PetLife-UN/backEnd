@@ -66,7 +66,7 @@ public class ApplicationFormController {
                             "<div style=\"color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif\">"+
                                 "<h2 style=\"color: #e67e22; margin: 0 0 7px\">¡Felicitaciones!</h2>"+
                                 "<p style=\"margin: 2px; font-size: 15px\">"+
-                                    "Tu solicitud para aplicar a la adopcion de "+ pet.getNombre()+" a sido enviada :D"+
+                                    "Tu solicitud para aplicar a la adopcion de "+ pet.getNombre()+" ha sido enviada :D"+
                                 "</p>"+
                             "</div>"+
                         "</td>" +
@@ -95,8 +95,8 @@ public class ApplicationFormController {
                     "</tr>" +
                     "</table>";
 
-            emailService.sendEmailPasswordRecovery(user.getEmail(), "Notificacion solicitud de adopcion",adopter);
-            emailService.sendEmailPasswordRecovery(applicationForm.getEmail(), "Notificacion solicitud de adopcion",publisher);
+            emailService.sendEmailPasswordRecovery(user.getEmail(), "Notificacion solicitud de adopcion",publisher);
+            emailService.sendEmailPasswordRecovery(applicationForm.getEmail(), "Notificacion solicitud de adopcion",adopter);
 
             return ResponseEntity.ok(new MessageResponse("Se ha registrado correctamente"));
         }
