@@ -64,4 +64,15 @@ public class PetController {
         return new ResponseEntity<>(new MessageResponse("User doesn't have any pets"),HttpStatus.NOT_FOUND);
     }
 
+    @PutMapping("/deletePet")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<?> deleteUserPet(@RequestParam Long id){
+        Pet pet = petService.getPetById(id);
+        if(pet != null){
+            pet.setDeleted(true);
+            return ResponseEntity.ok("Pet successfully deleted");
+        }
+        return ResponseEntity.badRequest().body("Pet Already deleted");
+    }
+
 }

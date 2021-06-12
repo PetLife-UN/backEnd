@@ -125,7 +125,9 @@ public class PetService {
         List<PetResponse> response = new ArrayList<>();
 
         for(Pet pet : list){
-            response.add(new PetResponse(pet));
+            if(!pet.isDeleted()) {
+                response.add(new PetResponse(pet));
+            }
         }
         return response;
     }

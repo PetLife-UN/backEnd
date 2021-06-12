@@ -24,7 +24,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 
     @Query("select new Pet(p.id, p.nombre, p.edad, p.tipo, p.sexo, p.raza, p.link_foto) " +
             "from Pet p " +
-            "where p.adoptado  =:#{#adopted} "+
+            "where p.adoptado  =:#{#adopted}  AND p.isDeleted = false"+
             " order by p.id")
     Page<Pet> getShortPetsInfoPage(@Param("adopted") Boolean adopted, Pageable pageable);
 
@@ -33,7 +33,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 
     @Query("select new Pet(p.id, p.nombre, p.edad, p.esteril, p.tipo, p.sexo, p.raza, p.tamano, p.descripcion, p.vacunada, p.adoptado, p.link_foto) " +
             "from Pet p " +
-            "where p.id  =:#{#id} "+
+            "where p.id  =:#{#id} AND p.isDeleted = false"+
             " order by p.id")
     Pet getShortPetByIdAlt(@Param("id") long id);
 
