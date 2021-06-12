@@ -70,6 +70,7 @@ public class PetController {
         Pet pet = petService.getPetById(id);
         if(pet != null){
             pet.setDeleted(true);
+            petService.update(pet);
             return ResponseEntity.ok("Pet successfully deleted");
         }
         return ResponseEntity.badRequest().body("Pet Already deleted");
