@@ -53,10 +53,21 @@ public class PetService {
     }
 
 
-    public Pet getPetById(long Id){
+    public Pet getShortInfoPetById(long Id){
         try
         {
             return petRepository.getShortPetByIdAlt(Id);
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+    }
+
+    public Pet getPetById(long Id){
+        try
+        {
+            return petRepository.getPetById(Id);
         }
         catch(Exception e)
         {

@@ -47,7 +47,7 @@ public class PetController {
 
     @GetMapping("/consultaPet")
     public @ResponseBody ResponseEntity<?> consultaPetId(@RequestParam Long idPet) {
-        Pet pet = petService.getPetById(idPet);
+        Pet pet = petService.getShortInfoPetById(idPet);
         return new ResponseEntity <Pet>( pet, HttpStatus.OK);
     }
 
