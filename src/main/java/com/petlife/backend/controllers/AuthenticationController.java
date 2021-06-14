@@ -21,6 +21,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,6 +65,8 @@ public class AuthenticationController {
                 List<String> roles = userDetails.getAuthorities().stream()
                         .map(item -> item.getAuthority())
                         .collect(Collectors.toList());
+                user.setLastLogin(LocalDateTime.now());
+                userService.update(user);
 
                 return ResponseEntity.ok(new JwtResponse(
                         userDetails.getId(),
