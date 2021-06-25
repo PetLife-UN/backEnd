@@ -47,7 +47,7 @@ public class PetController {
 
     @GetMapping("/consultaPet")
     public @ResponseBody ResponseEntity<?> consultaPetId(@RequestParam Long idPet) {
-        Pet pet = petService.getPetById(idPet);
+        Pet pet = petService.getShortInfoPetById(idPet);
         return new ResponseEntity <Pet>( pet, HttpStatus.OK);
     }
 
@@ -62,6 +62,18 @@ public class PetController {
             return  ResponseEntity.ok(petService.removeUserDetails(petList));
         }
         return new ResponseEntity<>(new MessageResponse("User doesn't have any pets"),HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/deletePet")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<?> deleteUserPet(@RequestParam Long id){
+        Pet pet = petService.getPetById(id);
+        if(pet != null){
+            pet.setDeleted(true);
+            petService.update(pet);
+            return ResponseEntity.ok("Pet successfully deleted");
+        }
+        return ResponseEntity.badRequest().body("Pet Already deleted");
     }
 
 }

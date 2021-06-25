@@ -53,10 +53,21 @@ public class PetService {
     }
 
 
-    public Pet getPetById(long Id){
+    public Pet getShortInfoPetById(long Id){
         try
         {
             return petRepository.getShortPetByIdAlt(Id);
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+    }
+
+    public Pet getPetById(long Id){
+        try
+        {
+            return petRepository.getPetById(Id);
         }
         catch(Exception e)
         {
@@ -125,7 +136,9 @@ public class PetService {
         List<PetResponse> response = new ArrayList<>();
 
         for(Pet pet : list){
-            response.add(new PetResponse(pet));
+            if(!pet.isDeleted()) {
+                response.add(new PetResponse(pet));
+            }
         }
         return response;
     }

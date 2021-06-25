@@ -3,7 +3,6 @@ package com.petlife.backend.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.petlife.backend.requestModels.request.PublishPetRequest;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -50,6 +49,9 @@ public class Pet {
 
         private String link_foto;
 
+        @Column(columnDefinition = "boolean default false")
+        private boolean isDeleted;
+
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "user_id")
 
@@ -74,6 +76,7 @@ public class Pet {
                 this.adoptado=adoptado;
                 this.link_foto=link_foto;
                 this.user=user;
+                this.isDeleted = false;
         }
 
         public Pet(PublishPetRequest s, User uid){
@@ -89,7 +92,7 @@ public class Pet {
                 this.link_foto=s.getLinks_fotos();
                 this.user =uid;
                 this.adoptado=false;
-
+                this.isDeleted = false;
         }
 
         public Pet(Long id, String nombre, Integer edad, String tipo, String raza, String link_foto, User user) {
@@ -100,6 +103,7 @@ public class Pet {
                 this.raza = raza;
                 this.link_foto = link_foto;
                 this.user = user;
+                this.isDeleted = false;
         }
 
         public Pet(Long id, String nombre, Integer edad, String tipo, String raza, String link_foto) {
@@ -109,6 +113,7 @@ public class Pet {
                 this.tipo = tipo;
                 this.raza = raza;
                 this.link_foto = link_foto;
+                this.isDeleted = false;
         }
 
         public Pet(Long id, String nombre, Integer edad, String tipo, String sexo, String raza, String link_foto) {
@@ -119,7 +124,7 @@ public class Pet {
                 this.sexo = sexo;
                 this.raza = raza;
                 this.link_foto = link_foto;
-
+                this.isDeleted = false;
         }
 
         public Pet(Long id, String nombre, Integer edad, String esteril, String tipo, String sexo, String raza, String tamano, String descripcion, boolean vacunada, boolean adoptado, String link_foto) {
@@ -135,10 +140,11 @@ public class Pet {
                 this.vacunada = vacunada;
                 this.adoptado = adoptado;
                 this.link_foto = link_foto;
+                this.isDeleted = false;
         }
 
         public Pet(){
-
+                this.isDeleted = false;
         }
 
         public Long getId() {
@@ -239,6 +245,14 @@ public class Pet {
 
         public void setAdoptado(boolean adoptado) {
                 this.adoptado = adoptado;
+        }
+
+        public boolean isDeleted() {
+                return isDeleted;
+        }
+
+        public void setDeleted(boolean deleted) {
+                isDeleted = deleted;
         }
 
         @Override
