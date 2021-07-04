@@ -86,6 +86,14 @@ public class PetService {
         }
     }
 
+    public Page<Pet> getShortPetsFilteredPage(List<String> tipos, String esteril, String sexo, List<String> tamano, Boolean vacunada, Integer page, Integer size){
+        try{
+            return petRepository.getShortPetsFilteredPage(tipos, esteril, sexo, tamano, vacunada,PageRequest.of(page,size));
+        }catch (Exception e){
+            return null;
+        }
+    }
+
     public List<Pet> getPetsByUser(User user){
        Optional<List<Pet>> result = petRepository.findByUser(user);
 

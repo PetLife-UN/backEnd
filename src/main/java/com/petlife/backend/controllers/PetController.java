@@ -50,7 +50,19 @@ public class PetController {
         Pet pet = petService.getShortInfoPetById(idPet);
         return new ResponseEntity <Pet>( pet, HttpStatus.OK);
     }
-
+    
+    @GetMapping("/consultaFil")
+    public @ResponseBody ResponseEntity<?> consultaPetBasicaPages(
+            @RequestParam(value = "tipo", required = false) Optional<List<String>> tipos,
+            @RequestParam(value = "esteril", required = false) Optional<String> esteril,
+            @RequestParam(value = "sexo", required = false) Optional<String> sexo,
+            @RequestParam(value = "tamano", required = false) Optional<List<String>> tamano,
+            @RequestParam(value = "vacunada", required = false) Optional<Boolean> vacunada,
+            @RequestParam Optional<Integer> page,@RequestParam Optional<Integer> size){
+        Page<Pet> petsFiltered = petService.getShortPetsFilteredPage(tipos.orElse(null),esteril.orElse(null),sexo.orElse(null),tamano.orElse(null),vacunada.orElse(null), page.orElse(0),size.orElse(6));
+        return new ResponseEntity<Page<Pet>>(petsFiltered, HttpStatus.OK);
+    }
+    
     @GetMapping("/getUserPets")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> returnPetsfromUser(){
