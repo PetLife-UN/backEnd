@@ -49,8 +49,8 @@ public class ApplicationFormService {
         return null;
     }
 
-    public Page<ApplicationForm> getApplByUserPage(User user, Boolean adopted, Integer page, Integer size){
-        Optional<Page<ApplicationForm>> result = applicationFormRepository.findByUserPage(user, adopted, PageRequest.of(page,size));
+    public Page<ApplicationForm> getApplByUserPage(User user, Boolean adopted, Boolean visible, Integer page, Integer size){
+        Optional<Page<ApplicationForm>> result = applicationFormRepository.findByUserPage(user, adopted, visible, PageRequest.of(page,size));
         if(result.isPresent()){
             return result.get();
         }
@@ -75,6 +75,24 @@ public class ApplicationFormService {
         Page<ApplyFormResponse> responsePage = new PageImpl<>(responseList,PageRequest.of(appPages.getNumber(),appPages.getSize()), appPages.getTotalElements() );
 
         return responsePage;
+    }
+
+    public ApplicationForm findById(long id){
+
+        Optional<ApplicationForm> apply = applicationFormRepository.findById(id);
+        if(apply.isPresent()){
+            return(apply.get());
+        }
+        return null;
+    }
+
+    public boolean update(ApplicationForm appli) {
+        try {
+            applicationFormRepository.save(appli);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }
