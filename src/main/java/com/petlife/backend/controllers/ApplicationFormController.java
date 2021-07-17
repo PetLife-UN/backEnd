@@ -4,6 +4,8 @@ import com.petlife.backend.models.ApplicationForm;
 import com.petlife.backend.models.Pet;
 import com.petlife.backend.models.User;
 import com.petlife.backend.requestModels.request.ApplyForm;
+import com.petlife.backend.requestModels.request.ApplyModifyRequest;
+import com.petlife.backend.requestModels.request.UserModifyDetailsRequest;
 import com.petlife.backend.requestModels.response.MessageResponse;
 import com.petlife.backend.security.UserDetailsImpl;
 import com.petlife.backend.services.ApplicationFormService;
@@ -115,10 +117,28 @@ public class ApplicationFormController {
 
     @GetMapping("/getApplicationUserPage")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> returnApplicUser(@RequestParam Optional<Boolean> adopted, @RequestParam Optional<Integer> page,@RequestParam Optional<Integer> size){
+    public ResponseEntity<?> returnApplicUser(@RequestParam Optional<Boolean> adopted, @RequestParam Optional<Boolean> visible, @RequestParam Optional<Integer> page,@RequestParam Optional<Integer> size){
         UserDetailsImpl user_auth= (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findByEmail(user_auth.getUsername());
-        Page<ApplicationForm> apppages = applicationFormService.getApplByUserPage(user, adopted.orElse(false), page.orElse(0),size.orElse(6));
+        Page<ApplicationForm> apppages = applicationFormService.getApplByUserPage(user, adopted.orElse(false), visible.orElse(null),page.orElse(0),size.orElse(6));
         return new ResponseEntity<>(applicationFormService.removeUserDetailsPage(apppages), HttpStatus.OK);
+    }
+
+    @PutMapping("/modifyApplicationVis")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<?> modifyUserDetails(@RequestBody ApplyModifyRequest applyInfo){
+        UserDetailsImpl user_auth= (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByEmail(user_auth.getUsername());
+        ApplicationForm appli = applicationFormService.findById(applyInfo.getId());
+        if(appli != null){
+            if(appli.getPet().getUser() == user){
+                appli.setPublicationVisible(applyInfo.isPublicationVisible());
+                applicationFormService.update(appli);
+                return new ResponseEntity<>(new MessageResponse("Publicacion modificada correctamente"),HttpStatus.OK);
+            }
+            return new ResponseEntity<>(new MessageResponse("Usuario no autorizado"),HttpStatus.UNAUTHORIZED);
+
+        }
+        return new ResponseEntity<>(new MessageResponse("Publicacion no encontrada"),HttpStatus.NOT_FOUND);
     }
 }
