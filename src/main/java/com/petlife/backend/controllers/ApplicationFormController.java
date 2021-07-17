@@ -117,10 +117,10 @@ public class ApplicationFormController {
 
     @GetMapping("/getApplicationUserPage")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> returnApplicUser(@RequestParam Optional<Boolean> adopted, @RequestParam Optional<Boolean> visible, @RequestParam Optional<Integer> page,@RequestParam Optional<Integer> size){
+    public ResponseEntity<?> returnApplicUser(@RequestParam Optional<Boolean> deleted, @RequestParam Optional<Boolean> visible, @RequestParam Optional<Integer> page,@RequestParam Optional<Integer> size){
         UserDetailsImpl user_auth= (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findByEmail(user_auth.getUsername());
-        Page<ApplicationForm> apppages = applicationFormService.getApplByUserPage(user, adopted.orElse(false), visible.orElse(null),page.orElse(0),size.orElse(6));
+        Page<ApplicationForm> apppages = applicationFormService.getApplByUserPage(user, deleted.orElse(false), visible.orElse(null),page.orElse(0),size.orElse(6));
         return new ResponseEntity<>(applicationFormService.removeUserDetailsPage(apppages), HttpStatus.OK);
     }
 
