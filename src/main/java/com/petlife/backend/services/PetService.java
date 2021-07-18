@@ -53,10 +53,21 @@ public class PetService {
     }
 
 
-    public Pet getPetById(long Id){
+    public Pet getShortInfoPetById(long Id){
         try
         {
             return petRepository.getShortPetByIdAlt(Id);
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+    }
+
+    public Pet getPetById(long Id){
+        try
+        {
+            return petRepository.getPetById(Id);
         }
         catch(Exception e)
         {
@@ -71,6 +82,14 @@ public class PetService {
         }
         catch(Exception e)
         {
+            return null;
+        }
+    }
+
+    public Page<Pet> getShortPetsFilteredPage(List<String> tipos, String esteril, String sexo, List<String> tamano, Boolean vacunada, Integer page, Integer size){
+        try{
+            return petRepository.getShortPetsFilteredPage(tipos, esteril, sexo, tamano, vacunada,PageRequest.of(page,size));
+        }catch (Exception e){
             return null;
         }
     }
@@ -125,7 +144,9 @@ public class PetService {
         List<PetResponse> response = new ArrayList<>();
 
         for(Pet pet : list){
-            response.add(new PetResponse(pet));
+            if(!pet.isDeleted()) {
+                response.add(new PetResponse(pet));
+            }
         }
         return response;
     }
