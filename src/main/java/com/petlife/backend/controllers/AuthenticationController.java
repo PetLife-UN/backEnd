@@ -127,6 +127,13 @@ public class AuthenticationController {
         userService.save(user);
         sendEmailService.sendEmail(user.getEmail(), "Welcome to pet day", user.getActivationToken(), "http://192.168.235.125:8081/activate");
 
+        if (userService.save(user) == true) {
+            sendEmailService.sendEmail(user.getEmail(), "Bienvendio a PetLife", user.getActivationToken(), "https://un-petlife.netlify.app/activate");
+        }
+
+
+
+
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
