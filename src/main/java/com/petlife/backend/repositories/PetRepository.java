@@ -24,7 +24,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 
     @Query("select new Pet(p.id, p.nombre, p.edad, p.tipo, p.sexo, p.raza, p.link_foto) " +
             "from Pet p " +
-            "where p.adoptado  =:#{#adopted} "+
+            "where p.adoptado  =:#{#adopted}  AND p.isDeleted = false"+
             " order by p.id")
     Page<Pet> getShortPetsInfoPage(@Param("adopted") Boolean adopted, Pageable pageable);
 
@@ -33,9 +33,13 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 
     @Query("select new Pet(p.id, p.nombre, p.edad, p.esteril, p.tipo, p.sexo, p.raza, p.tamano, p.descripcion, p.vacunada, p.adoptado, p.link_foto) " +
             "from Pet p " +
-            "where p.id  =:#{#id} "+
+            "where p.id  =:#{#id} AND p.isDeleted = false"+
             " order by p.id")
     Pet getShortPetByIdAlt(@Param("id") long id);
+
+    @Query("select new Pet(p.id, p.nombre, p.edad, p.esteril, p.tipo, p.sexo, p.raza, p.tamano, p.descripcion, p.vacunada, p.adoptado, p.link_foto) from Pet p where" +
+            " ((:tipo) is null OR p.tipo IN (:tipo)) AND (:esteril is null OR p.esteril = :esteril) AND (:sexo is null OR p.sexo = :sexo) AND ((:tamano) is null OR p.tamano IN (:tamano)) AND (:vacunada is null OR p.vacunada = :vacunada) AND p.isDeleted = false ORDER BY p.id")
+    Page<Pet> getShortPetsFilteredPage(@Param("tipo") List<String > tipos, @Param("esteril") String esteril,@Param("sexo") String sexo,@Param("tamano") List<String> tamano,@Param("vacunada") Boolean vacunada, Pageable pageable);
 
     Pet getPetById(long Id);
 

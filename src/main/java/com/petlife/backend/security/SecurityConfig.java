@@ -62,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/pet/consulta").permitAll()
                 .antMatchers("/api/pet/consultaPet").permitAll()
                 .antMatchers("/api/apply/form/**").permitAll()
+                .antMatchers("/api/pet/consultaFil").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

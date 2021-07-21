@@ -34,8 +34,8 @@ public interface ApplicationFormRepository extends JpaRepository<ApplicationForm
     @Query("SELECT  ap " +
             "FROM ApplicationForm ap " +
             "INNER JOIN Pet p ON p = ap.pet " +
-            "WHERE p.user =:#{#user} AND p.adoptado =:#{#adopted} " +
+            "WHERE p.user =:#{#user} AND p.isDeleted =:#{#isDeleted} AND (:visible is null OR ap.publicationVisible = :visible) " +
             "ORDER BY ap.id DESC")
-    Optional <Page<ApplicationForm>> findByUserPage(@Param("user") User user, @Param("adopted") Boolean adopted, Pageable pageable);
+    Optional <Page<ApplicationForm>> findByUserPage(@Param("user") User user, @Param("isDeleted") Boolean isDeleted, @Param("visible") Boolean visible, Pageable pageable);
 
 }

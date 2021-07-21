@@ -39,12 +39,13 @@ public class ApplyFormResponse {
     private boolean followingAgreement;
     private String communication;
     private PetResponse pet;
+    private boolean publicationVisible;
 
     public ApplyFormResponse() {
 
     }
 
-    public ApplyFormResponse(Long id, String name, String email, String telNumber, String movilNumber, Date date, String city, String department, String address, int age, String occupation, int familyMembers, int averageAge, String whoAutho, Boolean familyAgreement, String reason, String restingPlace, String careOption, boolean allergies, boolean animalExperience, String experienceType, int experienceLife, String experienceNow, String experienceReason, boolean adjustmentPeriod, String adjustmentPeriodTime, boolean followingAgreement, String communication, Pet pet) {
+    public ApplyFormResponse(Long id, String name, String email, String telNumber, String movilNumber, Date date, String city, String department, String address, int age, String occupation, int familyMembers, int averageAge, String whoAutho, Boolean familyAgreement, String reason, String restingPlace, String careOption, boolean allergies, boolean animalExperience, String experienceType, int experienceLife, String experienceNow, String experienceReason, boolean adjustmentPeriod, String adjustmentPeriodTime, boolean followingAgreement, String communication, boolean publicationVisible, Pet pet) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -73,6 +74,7 @@ public class ApplyFormResponse {
         this.adjustmentPeriodTime = adjustmentPeriodTime;
         this.followingAgreement = followingAgreement;
         this.communication = communication;
+        this.publicationVisible = publicationVisible;
         this.pet = new PetResponse(pet);
     }
 
@@ -105,6 +107,7 @@ public class ApplyFormResponse {
         this.adjustmentPeriodTime = apply.getAdjustmentPeriodTime();
         this.followingAgreement = apply.isFollowingAgreement();
         this.communication = apply.getCommunication();
+        this.publicationVisible = apply.isPublicationVisible();
         this.pet = new PetResponse(apply.getPet());
     }
 
@@ -338,5 +341,13 @@ public class ApplyFormResponse {
 
     public void setPet(PetResponse pet) {
         this.pet = pet;
+    }
+
+    public boolean isPublicationVisible() {
+        return publicationVisible;
+    }
+
+    public void setPublicationVisible(boolean publicationVisible) {
+        this.publicationVisible = publicationVisible;
     }
 }
