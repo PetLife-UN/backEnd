@@ -1,6 +1,7 @@
 package com.petlife.backend.controllers;
 
 import com.petlife.backend.models.User;
+import com.petlife.backend.requestModels.request.UserModifyDetailsRequest;
 import com.petlife.backend.requestModels.response.UserProfileResponse;
 import com.petlife.backend.security.UserDetailsImpl;
 import com.petlife.backend.services.UserService;
@@ -8,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,4 +37,19 @@ public class UserController {
 
 
     }
+
+    @PutMapping("/modifyUserDetails")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<?> modifyUserDetails(@RequestBody UserModifyDetailsRequest info){
+        UserDetailsImpl user_auth= (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByEmail(user_auth.getUsername());
+
+        user.setName(info.getName());
+        user.setCellPhoneNumber(info.getCellPhoneNumber());
+        user.setSurname(info.getSurname());
+
+        userService.update(user);
+        return ResponseEntity.ok("Modifications Done");
+    }
+
 }
