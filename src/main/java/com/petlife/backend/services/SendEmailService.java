@@ -27,6 +27,7 @@ public class SendEmailService {
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(
+                        "<div><h3>Activación de Cuenta</h3>" +
                         "<table style=\"max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;\">"+
                             "<tr><td style=\"padding: 0\"><img style=\"padding: 0; display: block\" src=\"https://i.postimg.cc/pV3qdkj2/petlife.jpg\" width=\"100%\"></td></tr>"+
                             "<div><h3>Activación de Cuenta</h3>" +

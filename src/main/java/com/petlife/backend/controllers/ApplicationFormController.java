@@ -52,24 +52,22 @@ public class ApplicationFormController {
         User user = pet.getUser();
 
         if(result) {
-            String urlPetImage = pet.getLinks_foto();
+            String urlPetImage = "https://un-petlife.netlify.app/Info_mascota/"+pet_id.toString();
             String adopter = "<table style=\"max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;\">" +
                     "<tr>" +
                         "<td style=\"background-color: #ecf0f1; text-align: left; padding: 0\">"+
                             "<img width=\"5%\" style=\"display:block; margin: 1.5% 3%\" src=\"https://i.postimg.cc/pV3qdkj2/petlife.jpg\">"+
                         "</td>"+
                     "</tr>" +
-                    "<tr>" +
-                        "<td style=\"padding: 0\">" +
-                            "<img style=\"padding: 0; display: block\" src="+ urlPetImage + "width=\"50%\">"+
-                        "</td>"+
-                    "</tr>" +
                         "<td style=\"background-color: #ecf0f1\">"+
                             "<div style=\"color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif\">"+
                                 "<h2 style=\"color: #e67e22; margin: 0 0 7px\">¡Felicitaciones!</h2>"+
                                 "<p style=\"margin: 2px; font-size: 15px\">"+
-                                    "Tu solicitud para aplicar a la adopcion de "+ pet.getNombre()+" ha sido enviada :D"+
+                                    "Tu solicitud para aplicar a la adopcion de "+ pet.getNombre()+" a sido enviada :D. Has click sobre el siguiente boton para verla "+
                                 "</p>"+
+                            "</div>"+
+                            "<div style=\"width: 100%; text-align: center\">"+
+                                "<a style=\"text-decoration: none; border-radius: 5px; padding:11px 23px: color: white; background-color: #3498db\""+urlPetImage+"\"> Ir a la publicacion</a>"+
                             "</div>"+
                         "</td>" +
                     "</tr>" +
@@ -81,17 +79,15 @@ public class ApplicationFormController {
                             "<img width=\"5%\" style=\"display:block; margin: 1.5% 3%\" src=\"https://i.postimg.cc/pV3qdkj2/petlife.jpg\">"+
                         "</td>"+
                     "</tr>" +
-                    "<tr>" +
-                        "<td style=\"padding: 0\">" +
-                            "<img style=\"padding: 0; display: block\" src="+ urlPetImage + "width=\"50%\">"+
-                        "</td>"+
-                    "</tr>" +
                         "<td style=\"background-color: #ecf0f1\">"+
                             "<div style=\"color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif\">"+
                                 "<h2 style=\"color: #e67e22; margin: 0 0 7px\">¡Felicitaciones!</h2>"+
                                 "<p style=\"margin: 2px; font-size: 15px\">"+
-                                    "Haz recibido una solicitud de adopcion para "+ pet.getNombre()+". Revisa de que se trata"+
+                                    "Haz recibido una solicitud de adopcion para "+ pet.getNombre()+" :D. Has click sobre el siguiente boton para verla "+
                                 "</p>"+
+                            "</div>"+
+                            "<div style=\"width: 100%; text-align: center\">"+
+                                "<a style=\"text-decoration: none; border-radius: 5px; padding:11px 23px: color: white; background-color: #3498db\""+urlPetImage+"\"> Ir a la publicacion</a>"+
                             "</div>"+
                         "</td>" +
                     "</tr>" +
