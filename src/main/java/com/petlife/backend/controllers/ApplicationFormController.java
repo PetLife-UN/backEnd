@@ -56,7 +56,7 @@ public class ApplicationFormController {
             String adopter = "<table style=\"max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;\">" +
                     "<tr>" +
                         "<td style=\"background-color: #ecf0f1; text-align: left; padding: 0\">"+
-                            "<img width=\"5%\" style=\"display:block; margin: 1.5% 3%\" src=\"https://i.postimg.cc/pV3qdkj2/petlife.jpg\">"+
+                            "<img width=\"20%\" style=\"display:block; margin: 0% 1%\" src=\"https://i.postimg.cc/pV3qdkj2/petlife.jpg\">"+
                         "</td>"+
                     "</tr>" +
                         "<td style=\"background-color: #ecf0f1\">"+
@@ -68,6 +68,7 @@ public class ApplicationFormController {
                             "</div>"+
                             "<div style=\"width: 100%; text-align: center\">"+
                     "</p><a class=\"button\" href=\""+ urlPetImage +"\" style=\"color:white; box-shadow:inset 0px -3px 7px 0px #29bbff;background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);background-color:#2dabf9;border-radius:3px;border:1px solid #0b0e07;display:inline-block;cursor:pointer;color:#ffffff;font-family:Arial;font-size:15px;padding:9px 23px;text-decoration:none;text-shadow:0px 1px 0px #263666;\">" +
+                    "Haga clic aquí para ver la publicacion</a></div></div>"+
                             "</div>"+
                         "</td>" +
                     "</tr>" +
@@ -76,7 +77,7 @@ public class ApplicationFormController {
             String publisher = "<table style=\"max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;\">" +
                     "<tr>" +
                         "<td style=\"background-color: #ecf0f1; text-align: left; padding: 0\">"+
-                            "<img width=\"5%\" style=\"display:block; margin: 1.5% 3%\" src=\"https://i.postimg.cc/pV3qdkj2/petlife.jpg\">"+
+                            "<img width=\"20%\" style=\"display:block; margin: 0% 1%\" src=\"https://i.postimg.cc/pV3qdkj2/petlife.jpg\">"+
                         "</td>"+
                     "</tr>" +
                         "<td style=\"background-color: #ecf0f1\">"+
@@ -88,6 +89,7 @@ public class ApplicationFormController {
                             "</div>"+
                             "<div style=\"width: 100%; text-align: center\">"+
                                 "</p><a class=\"button\" href=\""+ urlPetImage +"\" style=\"color:white; box-shadow:inset 0px -3px 7px 0px #29bbff;background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);background-color:#2dabf9;border-radius:3px;border:1px solid #0b0e07;display:inline-block;cursor:pointer;color:#ffffff;font-family:Arial;font-size:15px;padding:9px 23px;text-decoration:none;text-shadow:0px 1px 0px #263666;\">" +
+                                    "Haga clic aquí para ver la publicacion</a></div></div>"+
                             "</div>"+
                         "</td>" +
                     "</tr>" +
