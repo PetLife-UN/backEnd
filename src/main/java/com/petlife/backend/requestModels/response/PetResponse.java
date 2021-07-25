@@ -27,7 +27,9 @@ public class PetResponse {
 
     private String link_foto;
 
-    public PetResponse(Long id, String nombre, Integer edad, String esteril, String tipo, String sexo, String raza, String tamano, String descripcion, boolean vacunada, boolean adoptado, String link_foto) {
+    private boolean isDeleted;
+
+    public PetResponse(Long id, String nombre, Integer edad, String esteril, String tipo, String sexo, String raza, String tamano, String descripcion, boolean vacunada, boolean adoptado, String link_foto, boolean isDeleted) {
         this.id = id;
         this.nombre = nombre;
         this.edad = edad;
@@ -40,6 +42,7 @@ public class PetResponse {
         this.vacunada = vacunada;
         this.adoptado = adoptado;
         this.link_foto = link_foto;
+        this.isDeleted = isDeleted;
     }
 
     public PetResponse(Pet pet){
@@ -55,6 +58,7 @@ public class PetResponse {
         this.vacunada = pet.isVacunada();
         this.adoptado = pet.isAdoptado();
         this.link_foto = pet.getLinks_foto();
+        this.isDeleted = pet.isDeleted();
     }
 
     public Long getId() {
@@ -152,4 +156,8 @@ public class PetResponse {
     public void setLink_foto(String link_foto) {
         this.link_foto = link_foto;
     }
+
+    public boolean isDeleted() { return isDeleted; }
+
+    public void setDeleted(boolean deleted) { isDeleted = deleted; }
 }

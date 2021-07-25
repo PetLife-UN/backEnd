@@ -107,6 +107,8 @@ public class ApplicationForm {
     @Size(max = 25)
     private String communication;
 
+    private boolean publicationVisible;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "pet_id", nullable = false)
@@ -344,6 +346,14 @@ public class ApplicationForm {
         this.pet = pet;
     }
 
+    public boolean isPublicationVisible() {
+        return publicationVisible;
+    }
+
+    public void setPublicationVisible(boolean publicationVisible) {
+        this.publicationVisible = publicationVisible;
+    }
+
     public ApplicationForm() {
     }
 
@@ -376,6 +386,7 @@ public class ApplicationForm {
         this.followingAgreement = apf.isFollowingAgreement();
         this.communication = apf.getCommunication();
         this.pet = pet_id;
+        this.publicationVisible = true;
     }
 
 

@@ -268,4 +268,9 @@ public class ApplyForm {
     public void setCommunication(String communication) {
         this.communication = communication;
     }
+
+    public String getAdjustmentPeriodTime() {
+        return adjustmentPeriodTime;
+    }
+
 }
