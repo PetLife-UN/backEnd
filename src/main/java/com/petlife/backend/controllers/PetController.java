@@ -76,6 +76,21 @@ public class PetController {
         return new ResponseEntity<>(new MessageResponse("User doesn't have any pets"),HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/getDeletedUserPets")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<?> returnDeletedPetsfromUser(){
+        UserDetailsImpl user_auth= (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByEmail(user_auth.getUsername());
+
+        List<Pet> petList = petService.getDeletedPetsByUser(user);
+        
+
+        if(!petList.isEmpty()){
+            return  ResponseEntity.ok(petService.removeUserDetailsGeneral(petList));
+        }
+        return new ResponseEntity<>(new MessageResponse("User doesn't have any deleted pets"),HttpStatus.NOT_FOUND);
+    }
+
     @PutMapping("/deletePet")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> deleteUserPet(@RequestParam Long id){
@@ -86,6 +101,18 @@ public class PetController {
             return ResponseEntity.ok("Pet successfully deleted");
         }
         return ResponseEntity.badRequest().body("Pet Already deleted");
+    }
+
+    @PutMapping("/restorePet")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<?> restoreUserPet(@RequestParam Long id){
+        Pet pet = petService.getPetById(id);
+        if(pet != null){
+            pet.setDeleted(false);
+            petService.update(pet);
+            return ResponseEntity.ok("Pet successfully restored");
+        }
+        return ResponseEntity.badRequest().body("Pet can't be restored");
     }
 
 }
