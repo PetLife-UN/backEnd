@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PetService {
@@ -103,6 +104,17 @@ public class PetService {
         return null;
     }
 
+    public List<Pet> getDeletedPetsByUser(User user){
+ 
+        try{
+            return petRepository.findDeletedPetsByUser(user);
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+     }
+
 
     public boolean delete(Long id) {
         try {
@@ -138,6 +150,15 @@ public class PetService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public List<PetResponse> removeUserDetailsGeneral(List<Pet> list){
+        List<PetResponse> response = new ArrayList<>();
+
+        list.stream().forEach(pet -> {
+            response.add(new PetResponse(pet));
+        });
+        return response;
     }
 
     public List<PetResponse> removeUserDetails(List<Pet> list){
