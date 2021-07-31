@@ -1,5 +1,6 @@
 package com.petlife.backend.requestModels.response;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JwtResponse {
@@ -9,15 +10,17 @@ public class JwtResponse {
     private Long id;
     private String Username;
     private String email;
+    private LocalDateTime lastLogin;
 
     private List<String> roles;
 
-    public JwtResponse( Long id, String Username, String email, List<String> roles, String accessToken) {
+    public JwtResponse( Long id, String Username, String email, List<String> roles, String accessToken, LocalDateTime lastLogin) {
         this.id = id;
         this.Username = Username;
         this.email = email;
         this.roles = roles;
         this.token = accessToken;
+        this.lastLogin = lastLogin;
     }
 
     public String getToken() {
@@ -68,5 +71,13 @@ public class JwtResponse {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
     }
 }

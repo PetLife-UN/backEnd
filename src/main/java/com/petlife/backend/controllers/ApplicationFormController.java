@@ -63,12 +63,12 @@ public class ApplicationFormController {
                             "<div style=\"color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif\">"+
                                 "<h2 style=\"color: #e67e22; margin: 0 0 7px\">¡Felicitaciones!</h2>"+
                                 "<p style=\"margin: 2px; font-size: 15px\">"+
-                                    "Tu solicitud para aplicar a la adopcion de "+ pet.getNombre()+" a sido enviada :D. Has click sobre el siguiente boton para verla "+
+                                    "Tu solicitud para aplicar a la adopción de "+ pet.getNombre()+" ha sido enviada :D. Has click sobre el siguiente boton para verla "+
                                 "</p>"+
                             "</div>"+
                             "<div style=\"width: 100%; text-align: center\">"+
                     "</p><a class=\"button\" href=\""+ urlPetImage +"\" style=\"color:white; box-shadow:inset 0px -3px 7px 0px #29bbff;background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);background-color:#2dabf9;border-radius:3px;border:1px solid #0b0e07;display:inline-block;cursor:pointer;color:#ffffff;font-family:Arial;font-size:15px;padding:9px 23px;text-decoration:none;text-shadow:0px 1px 0px #263666;\">" +
-                    "Haga clic aquí para ver la publicacion</a></div></div>"+
+                    "Haga clic aquí para ver la publicación</a></div></div>"+
                             "</div>"+
                         "</td>" +
                     "</tr>" +
@@ -84,19 +84,19 @@ public class ApplicationFormController {
                             "<div style=\"color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif\">"+
                                 "<h2 style=\"color: #e67e22; margin: 0 0 7px\">¡Felicitaciones!</h2>"+
                                 "<p style=\"margin: 2px; font-size: 15px\">"+
-                                    "Haz recibido una solicitud de adopcion para "+ pet.getNombre()+" :D. Has click sobre el siguiente boton para verla "+
+                                    "Has recibido una solicitud de adopción para "+ pet.getNombre()+" :D. Haz click sobre el siguiente botón para verla "+
                                 "</p>"+
                             "</div>"+
                             "<div style=\"width: 100%; text-align: center\">"+
                                 "</p><a class=\"button\" href=\""+ urlPetImage +"\" style=\"color:white; box-shadow:inset 0px -3px 7px 0px #29bbff;background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);background-color:#2dabf9;border-radius:3px;border:1px solid #0b0e07;display:inline-block;cursor:pointer;color:#ffffff;font-family:Arial;font-size:15px;padding:9px 23px;text-decoration:none;text-shadow:0px 1px 0px #263666;\">" +
-                                    "Haga clic aquí para ver la publicacion</a></div></div>"+
+                                    "Haz clic aquí para ver la publicación</a></div></div>"+
                             "</div>"+
                         "</td>" +
                     "</tr>" +
                     "</table>";
 
-            emailService.sendEmailPasswordRecovery(user.getEmail(), "Notificacion solicitud de adopcion",publisher);
-            emailService.sendEmailPasswordRecovery(applicationForm.getEmail(), "Notificacion solicitud de adopcion",adopter);
+            emailService.sendEmailPasswordRecovery(user.getEmail(), "Notificación solicitud de adopción",publisher);
+            emailService.sendEmailPasswordRecovery(applicationForm.getEmail(), "Notificación solicitud de adopción",adopter);
 
             return ResponseEntity.ok(new MessageResponse("Se ha registrado correctamente"));
         }
