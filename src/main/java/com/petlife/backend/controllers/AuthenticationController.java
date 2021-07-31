@@ -62,6 +62,7 @@ public class AuthenticationController {
                 String jwt = jwtUtils.generateJwtToken(authentication);
 
                 UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+                LocalDateTime lastLogin = user.getLastLogin();
                 List<String> roles = userDetails.getAuthorities().stream()
                         .map(item -> item.getAuthority())
                         .collect(Collectors.toList());
@@ -73,7 +74,8 @@ public class AuthenticationController {
                         userDetails.getUsername(),
                         userDetails.getEmail(),
                         roles,
-                        jwt));
+                        jwt,
+                        lastLogin));
             }
             return new ResponseEntity<>(new MessageResponse("Usuario no activado"),HttpStatus.FORBIDDEN );
         }
@@ -128,15 +130,12 @@ public class AuthenticationController {
             });
         }
         user.setRoles(roles);
+        user.setLastLogin(LocalDateTime.now());
         userService.save(user);
 
         if (userService.save(user) == true) {
             sendEmailService.sendEmail(user.getEmail(), "Bienvenido a PetLife", user.getActivationToken(), "https://un-petlife.netlify.app/activate");
         }
-
-
-
-
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
