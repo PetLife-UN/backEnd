@@ -52,7 +52,7 @@ public class ApplicationFormController {
         User user = pet.getUser();
 
         if(result) {
-            String urlPetImage = "https://un-petlife.netlify.app/Info_mascota/"+pet_id.toString();
+            String urlPetImage = "https://un-petlife.netlify.app/Info-mascota/"+pet_id.toString();
             String adopter = "<table style=\"max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;\">" +
                     "<tr>" +
                         "<td style=\"background-color: #ecf0f1; text-align: left; padding: 0\">"+
