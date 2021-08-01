@@ -63,7 +63,7 @@ public class ApplicationFormController {
                             "<div style=\"color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif\">"+
                                 "<h2 style=\"color: #e67e22; margin: 0 0 7px\">¡Felicitaciones!</h2>"+
                                 "<p style=\"margin: 2px; font-size: 15px\">"+
-                                    "Tu solicitud para aplicar a la adopción de "+ pet.getNombre()+" ha sido enviada :D. Has click sobre el siguiente boton para verla "+
+                                    "Tu solicitud para aplicar a la adopción de "+ pet.getNombre()+" ha sido enviada :D. Haz click sobre el siguiente botón para verla "+
                                 "</p>"+
                             "</div>"+
                             "<div style=\"width: 100%; text-align: center\">"+
