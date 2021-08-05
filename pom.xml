@@ -48,6 +48,11 @@
 			<scope>test</scope>
 		</dependency>
 
+        <properties>
+            <sonar.organization>petlifeun</sonar.organization>
+            <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        </properties>
+
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
