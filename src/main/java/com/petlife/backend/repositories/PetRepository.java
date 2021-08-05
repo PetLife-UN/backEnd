@@ -44,7 +44,8 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     Pet getPetById(long Id);
 
     Optional<List<Pet>> findByUser( User user);
+
+    @Query("from Pet p where p.user = (:user) AND p.isDeleted = true")
+    List<Pet> findDeletedPetsByUser(@Param("user") User user);
     
-
-
 }

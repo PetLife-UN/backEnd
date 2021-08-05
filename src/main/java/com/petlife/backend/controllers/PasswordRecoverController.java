@@ -39,9 +39,9 @@ public class PasswordRecoverController {
             String text = "<div><h3>Solicitud de reestablecimiento de contraseña</h3>" +
                     "<h4>¡Hola!</h4><p>Hemos recibido una solicitud para el cambio de contraseña a la cuenta enlazada a éste correo, si fuiste tu por favor sigue el proceso en el siguiente enlace que te brindaremos." +
                     " Podrá usar este enlace durante la próxima hora, luego de esto vencerá y tendrá que solicitar uno nuevo." +
-                    " Si no realizo ninguna solicitud de cambio de contraseña, puede hacer caso omiso a este correo." +
+                    " Si no realizó ninguna solicitud de cambio de contraseña, puede hacer caso omiso a este correo." +
                     "</p><a class=\"button\" href=\""+ url +"\" style=\"color:white; box-shadow:inset 0px -3px 7px 0px #29bbff;background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);background-color:#2dabf9;border-radius:3px;border:1px solid #0b0e07;display:inline-block;cursor:pointer;color:#ffffff;font-family:Arial;font-size:15px;padding:9px 23px;text-decoration:none;text-shadow:0px 1px 0px #263666;\">" +
-                    "Haga clic aquí para redirigirse al cambio de contraseña</a></div></div>";
+                    "Haga clic aquí para redirigirse a la pestaña de  cambio de contraseña</a></div></div>";
 
             emailService.sendEmailPasswordRecovery(user.getEmail(), "Recuperación de Contraseña", text);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
